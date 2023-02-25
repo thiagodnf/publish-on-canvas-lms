@@ -11,7 +11,7 @@ export default class CanvasApiUtils {
     static getHeaders() {
         return {
             headers: {
-                "Authorization": `Bearer ${RestApi.API_TOKEN}`
+                "Authorization": `Bearer ${CanvasApiUtils.API_TOKEN}`
             }
         };
     }
@@ -22,7 +22,7 @@ export default class CanvasApiUtils {
 
         return new Promise((resolve, reject) => {
 
-            axios.put(`${RestApi.API_URL}${url}`, data, RestApi.getHeaders())
+            axios.put(`${CanvasApiUtils.API_URL}${url}`, data, CanvasApiUtils.getHeaders())
                 .then(resolve)
                 .catch(reject);
         });
@@ -38,6 +38,6 @@ export default class CanvasApiUtils {
 
         url = url.replace(":url_or_id", pageUrlOrId);
 
-        return RestApi.put(url, data);
+        return CanvasApiUtils.put(url, data);
     }
 }
