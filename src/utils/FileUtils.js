@@ -68,4 +68,16 @@ export default class FileUtils {
 
         return fs.readFileSync(filePath, { encoding });
     }
+
+    static parse(filename) {
+        return path.parse(filename);
+    }
+
+    static getFileName(filename) {
+        return FileUtils.parse(filename).name;
+    }
+
+    static getFileExtension(filename) {
+        return FileUtils.parse(filename).ext;
+    }
 }
