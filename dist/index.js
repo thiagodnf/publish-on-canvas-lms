@@ -6179,7 +6179,7 @@ var __webpack_exports__ = {};
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var lib_core = __nccwpck_require__(2186);
+var core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -6187,7 +6187,7 @@ var external_path_ = __nccwpck_require__(5622);
 ;// CONCATENATED MODULE: external "process"
 const external_process_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("process");
 // EXTERNAL MODULE: ./node_modules/glob/glob.js
-var glob_glob = __nccwpck_require__(1957);
+var glob = __nccwpck_require__(1957);
 ;// CONCATENATED MODULE: ./src/utils/FileUtils.js
 
 
@@ -6195,21 +6195,21 @@ var glob_glob = __nccwpck_require__(1957);
 
 
 
-class FileUtils_FileUtils {
+class FileUtils {
 
     static isWorkspaceEmpty() {
 
-        return FileUtils_FileUtils.isEmpty(FileUtils_FileUtils.getWorkspacePath());
+        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
     }
 
     static getWorkspacePath() {
 
-        return process.env["GITHUB_WORKSPACE"] || "";
+        return external_process_namespaceObject.env.GITHUB_WORKSPACE || "";
     }
 
     static exists(fileOrPath) {
 
-        return fs.existsSync(fileOrPath);
+        return external_fs_.existsSync(fileOrPath);
     }
 
     static loadFiles(array) {
@@ -6222,7 +6222,7 @@ class FileUtils_FileUtils {
 
             core.debug(`Processing: ${el}`);
 
-            FileUtils_FileUtils.searchFiles(el).forEach(file => {
+            FileUtils.searchFiles(el).forEach(file => {
 
                 core.debug(`Adding file: ${file}`);
 
@@ -6236,43 +6236,43 @@ class FileUtils_FileUtils {
     static searchFiles(pattern) {
 
         const options = {
-            cwd: FileUtils_FileUtils.getWorkspacePath()
+            cwd: FileUtils.getWorkspacePath()
         };
 
-        return glob.sync(pattern, options);
+        return glob.glob.sync(pattern, options);
     }
 
     static isEmpty(path) {
 
-        if (!FileUtils_FileUtils.exists(path)) {
+        if (!FileUtils.exists(path)) {
             throw new Error(`${path} does not exist`);
         }
 
-        return fs.readdirSync(path).length === 0;
+        return external_fs_.readdirSync(path).length === 0;
     }
 
     static getContent(file, encoding = "utf-8") {
 
-        const filePath = path.join(FileUtils_FileUtils.getWorkspacePath(), file);
+        const filePath = external_path_.join(FileUtils.getWorkspacePath(), file);
 
-        return fs.readFileSync(filePath, { encoding });
+        return external_fs_.readFileSync(filePath, { encoding });
     }
 }
 ;// CONCATENATED MODULE: ./src/resources/Pages.js
 
 
-function Pages(input = ""){
 
-    lib_core.info("Processings Pages");
+function Pages(input = "") {
+
+    core.info("Processings Pages");
 
     const files = FileUtils.loadFiles([input]);
 
-    lib_core.info(`Found ${files.size} file(s). Checking them:`);
+    core.info(`Found ${files.size} file(s). Checking them:`);
 
     files.forEach(file => {
-        lib_core.info(`Processing: ${file}`);
+        core.info(`Processing: ${file}`);
     });
-
 }
 
 ;// CONCATENATED MODULE: ./index.js
@@ -6286,7 +6286,7 @@ async function run() {
 
     try {
 
-        Pages(lib_core.getInput("canvas_pages"));
+        Pages(core.getInput("canvas_pages"));
 
         // const canvas_assignments = core.getInput("canvas_assignments");
 
@@ -6301,9 +6301,9 @@ async function run() {
         //     core.info(`Processing: ${file}`);
         // });
 
-        lib_core.setOutput("time", new Date().toTimeString());
+        core.setOutput("time", new Date().toTimeString());
     } catch (error) {
-        lib_core.setFailed(error.message);
+        core.setFailed(error.message);
     }
 }
 
