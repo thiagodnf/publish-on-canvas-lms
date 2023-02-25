@@ -43574,7 +43574,22 @@ var Highlight = function () {
 
 /* harmony default export */ const extensions_Highlight = (Highlight);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/Strikethrough.js
+var Strikethrough = function () {
+
+    var plugin = {
+        type: "lang",
+        regex: /~~(.*)~~/g,
+        replace: "<s>$1</s>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Strikethrough = (Strikethrough);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -43583,7 +43598,7 @@ const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [extensions_Highlight]
+    extensions: [extensions_Highlight, extensions_Strikethrough]
 });
 
 function parser(content, css) {
