@@ -1,25 +1,36 @@
 import core from "@actions/core";
-import MarkdownParser from "../parsers/MarkdownParser.js";
+import parser from "../core/Parser.js";
 import FileUtils from "../utils/FileUtils.js";
 import StringUtils from "../utils/StringUtils.js";
 import CanvasApiUtils from "../utils/CanvasApiUtils.js";
 
 /**
  * Process files related to Canvas's Pages
- * @param {string} input the list of all files
+ * @param {string} files the list of all files
  * @returns
  */
-export default function Pages(input = "") {
-
-    if (StringUtils.isBlank(input)) {
-        return;
-    }
+export default function Pages(files, css = "") {
 
     core.info("Processings Pages");
 
-    const files = FileUtils.loadFiles(input);
+    if (StringUtils.isBlank(files)) {
+        return;
+    }
 
-    core.info(`Found ${files.size} file(s). Processing them:`);
+    if (!StringUtils.isBlank(css)) {
+
+        core.info("Loading .css file");
+
+        css = FileUtils.getFileContent(css);
+
+        core.info(css);
+    }
+
+    core.info("Loading files...");
+
+    files = FileUtils.loadFiles(files);
+
+    core.info(`Found ${files.size} file(s). Processing them...`);
 
     files.forEach(file => {
 
@@ -28,7 +39,7 @@ export default function Pages(input = "") {
         let filename = FileUtils.getFileName(file);
         let content = FileUtils.getFileContent(file);
 
-        let output = MarkdownParser(content);
+        let output = parser(content, css);
 
         CanvasApiUtils.createOrUpdatePages(filename, { body: output });
     });

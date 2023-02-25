@@ -1,14 +1,16 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Wait"
+description: "Wait a designated number of milliseconds"
 inputs:
-  canvas_pages:  # id of input
-    description: 'The Canvas Page'
+  resource:
+    description: "The Canvas Resource"
+    required: true
+  files:
+    description: "Files to be synced"
+    required: true
+  css:
+    description: "The .css files"
     required: false
-    default: ''
-  canvas_assignments:  # id of input
-    description: 'The Canvas Assignments'
-    required: false
-    default: ''
+    default: ""
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"

@@ -17,5 +17,4 @@ export default class StringUtils {
 
         return str.trim().length === 0;
     }
-
 }

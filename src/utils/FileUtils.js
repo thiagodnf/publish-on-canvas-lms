@@ -62,22 +62,22 @@ export default class FileUtils {
         return fs.readdirSync(path).length === 0;
     }
 
+    static parse(filePath) {
+        return path.parse(filePath);
+    }
+
+    static getFileName(filePath) {
+        return FileUtils.parse(filePath).name;
+    }
+
+    static getFileExtension(filePath) {
+        return FileUtils.parse(filePath).ext;
+    }
+
     static getFileContent(file, encoding = "utf-8") {
 
         const filePath = path.join(FileUtils.getWorkspacePath(), file);
 
         return fs.readFileSync(filePath, { encoding });
-    }
-
-    static parse(filename) {
-        return path.parse(filename);
-    }
-
-    static getFileName(filename) {
-        return FileUtils.parse(filename).name;
-    }
-
-    static getFileExtension(filename) {
-        return FileUtils.parse(filename).ext;
     }
 }

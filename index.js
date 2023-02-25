@@ -5,9 +5,19 @@ import Pages from "./src/resources/Pages.js";
 // packages have async methods
 async function run() {
 
+    const resource = core.getInput("resource");
+    const files = core.getInput("files");
+    const css = core.getInput("css") || "";
+
+    core.info(`Resource: ${resource}`);
+    core.info(`Files: ${files}`);
+    core.info(`CSS: ${css}`);
+
     try {
 
-        Pages(core.getInput("canvas_pages"));
+        if (resource === "pages") {
+            Pages(files, css);
+        }
 
     } catch (error) {
         core.setFailed(error.message);
