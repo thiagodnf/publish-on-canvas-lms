@@ -19451,7 +19451,7 @@ class CanvasApiUtils {
 
     static API_TOKEN = process.env.CANVAS_API_TOKEN || "";
 
-    static COURSE_ID = process.env.COURSE_ID || -1;
+    static COURSE_ID = process.env.CANVAS_COURSE_ID || -1;
 
     static getHeaders() {
         return {
