@@ -19,6 +19,8 @@ export default function MarkdownParser(content = "") {
 
     css = postcss([cssvariables()]).process(css).css;
 
+    core.info(css);
+
     let html = converter.makeHtml(content);
 
     html = juice(`<style>${css}</style>${html}`);

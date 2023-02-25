@@ -52991,6 +52991,8 @@ function MarkdownParser(content = "") {
 
     css = lib_postcss([postcss_css_variables()]).process(css).css;
 
+    core.info(css);
+
     let html = converter.makeHtml(content);
 
     html = juice(`<style>${css}</style>${html}`);
