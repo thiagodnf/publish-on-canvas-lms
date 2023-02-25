@@ -1,4 +1,5 @@
 import core from "@actions/core";
+import MarkdownParser from "../parsers/MarkdownParser.js";
 import FileUtils from "../utils/FileUtils.js";
 import StringUtils from "../utils/StringUtils.js";
 
@@ -25,6 +26,8 @@ export default function Pages(input = "") {
 
         let content = FileUtils.getContent(file);
 
-        core.info(content);
+        let output = MarkdownParser(content);
+
+        core.info(output);
     });
 }

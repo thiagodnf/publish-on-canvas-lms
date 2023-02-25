@@ -1,9 +1,14 @@
-import core from "@actions/core";
-import FileUtils from "../utils/FileUtils.js";
-import StringUtils from "../utils/StringUtils.js";
+import showdown from "showdown";
 
-export default function MarkdownParser(input = "") {
+const converter = new showdown.Converter({
+    noHeaderId: true,
+    tables: true,       // Enable support for tables synta
+    tasklists: true,     //  Enable support for GFM tasklists,
+    extensions: []
+});
+
+export default function MarkdownParser(content = "") {
 
 
-    return ;
+    return converter.makeHtml(content);;
 }
