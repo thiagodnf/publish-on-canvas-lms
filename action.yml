@@ -1,10 +1,14 @@
 name: 'Wait'
 description: 'Wait a designated number of milliseconds'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
-    required: true
-    default: '1000'
+  canvas_pages:  # id of input
+    description: 'The Canvas Page'
+    required: false
+    default: ''
+  canvas_assignments:  # id of input
+    description: 'The Canvas Assignments'
+    required: false
+    default: ''
 outputs:
   time: # output will be available to future steps
     description: 'The current time after waiting'

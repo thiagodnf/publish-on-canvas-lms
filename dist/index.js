@@ -2841,7 +2841,14 @@ const wait = __nccwpck_require__(258);
 // most @actions toolkit packages have async methods
 async function run() {
   try {
+    const canvas_pages = core.getInput('canvas_pages');
+    const canvas_assignments = core.getInput('canvas_assignments');
+
+    core.info(canvas_pages);
+    core.info(canvas_assignments);
+    
     const ms = core.getInput('milliseconds');
+
     core.info(`Waiting ${ms} milliseconds ...`);
 
     core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
