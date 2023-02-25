@@ -6270,7 +6270,7 @@ async function run() {
     lib_core.info(canvas_pages);
     lib_core.info(canvas_assignments);
 
-    const files = FileUtils.loadFiles(yamlFiles);
+    const files = FileUtils.loadFiles(canvas_pages);
 
     lib_core.info(`Found ${files.size} file(s). Checking them:`);
 
