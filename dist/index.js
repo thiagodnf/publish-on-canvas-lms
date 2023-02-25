@@ -43560,7 +43560,22 @@ var core = __nccwpck_require__(2186);
 var showdown = __nccwpck_require__(1872);
 // EXTERNAL MODULE: ./node_modules/juice/index.js
 var juice = __nccwpck_require__(8305);
-;// CONCATENATED MODULE: ./src/core/Parser.js
+;// CONCATENATED MODULE: ./src/parser/extensions/Highlight.js
+var Highlight = function () {
+
+    var plugin = {
+        type: "lang",
+        regex: /==(.*)==/g,
+        replace: "<mark>$1</mark>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Highlight = (Highlight);
+
+;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -43568,7 +43583,7 @@ const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: []
+    extensions: [extensions_Highlight]
 });
 
 function parser(content, css) {

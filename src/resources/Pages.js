@@ -1,5 +1,5 @@
 import core from "@actions/core";
-import parser from "../core/Parser.js";
+import parser from "../parser/Parser.js";
 import FileUtils from "../utils/FileUtils.js";
 import StringUtils from "../utils/StringUtils.js";
 import CanvasApiUtils from "../utils/CanvasApiUtils.js";
