@@ -14821,28 +14821,6 @@ var __webpack_exports__ = {};
 var core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
 var showdown = __nccwpck_require__(1872);
-;// CONCATENATED MODULE: ./src/parsers/MarkdownParser.js
-
-
-
-const converter = new showdown.Converter({
-    noHeaderId: true,
-    tables: true,       // Enable support for tables synta
-    tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: []
-});
-
-function MarkdownParser(content = "") {
-
-    let css = FileUtils.readFile("bootstrap.min.css");
-
-    let html = converter.makeHtml(content);
-
-    core.info(css);
-
-    return html;
-}
-
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -14858,11 +14836,11 @@ var glob = __nccwpck_require__(1957);
 
 
 
-class FileUtils_FileUtils {
+class FileUtils {
 
     static isWorkspaceEmpty() {
 
-        return FileUtils_FileUtils.isEmpty(FileUtils_FileUtils.getWorkspacePath());
+        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
     }
 
     static getWorkspacePath() {
@@ -14887,7 +14865,7 @@ class FileUtils_FileUtils {
 
             core.debug(`Processing: ${el}`);
 
-            FileUtils_FileUtils.searchFiles(el).forEach(file => {
+            FileUtils.searchFiles(el).forEach(file => {
 
                 core.debug(`Adding file: ${file}`);
 
@@ -14901,7 +14879,7 @@ class FileUtils_FileUtils {
     static searchFiles(pattern) {
 
         const options = {
-            cwd: FileUtils_FileUtils.getWorkspacePath()
+            cwd: FileUtils.getWorkspacePath()
         };
 
         return glob.glob.sync(pattern, options);
@@ -14909,7 +14887,7 @@ class FileUtils_FileUtils {
 
     static isEmpty(path) {
 
-        if (!FileUtils_FileUtils.exists(path)) {
+        if (!FileUtils.exists(path)) {
             throw new Error(`${path} does not exist`);
         }
 
@@ -14918,7 +14896,7 @@ class FileUtils_FileUtils {
 
     static getFileContent(file, encoding = "utf-8") {
 
-        const filePath = external_path_.join(FileUtils_FileUtils.getWorkspacePath(), file);
+        const filePath = external_path_.join(FileUtils.getWorkspacePath(), file);
 
         return external_fs_.readFileSync(filePath, { encoding });
     }
@@ -14928,12 +14906,36 @@ class FileUtils_FileUtils {
     }
 
     static getFileName(filename) {
-        return FileUtils_FileUtils.parse(filename).name;
+        return FileUtils.parse(filename).name;
     }
 
     static getFileExtension(filename) {
-        return FileUtils_FileUtils.parse(filename).ext;
+        return FileUtils.parse(filename).ext;
     }
+}
+
+;// CONCATENATED MODULE: ./src/parsers/MarkdownParser.js
+
+
+
+
+
+const converter = new showdown.Converter({
+    noHeaderId: true,
+    tables: true,       // Enable support for tables synta
+    tasklists: true,     //  Enable support for GFM tasklists,
+    extensions: []
+});
+
+function MarkdownParser(content = "") {
+
+    let css = FileUtils.getFileContent("bootstrap.min.css");
+
+    let html = converter.makeHtml(content);
+
+    core.info(css);
+
+    return html;
 }
 
 ;// CONCATENATED MODULE: ./src/utils/StringUtils.js
@@ -19516,7 +19518,7 @@ function Pages(input = "") {
 
     core.info("Processings Pages");
 
-    const files = FileUtils_FileUtils.loadFiles(input);
+    const files = FileUtils.loadFiles(input);
 
     core.info(`Found ${files.size} file(s). Processing them:`);
 
@@ -19524,8 +19526,8 @@ function Pages(input = "") {
 
         core.info(`Processing: ${file}`);
 
-        let filename = FileUtils_FileUtils.getFileName(file);
-        let content = FileUtils_FileUtils.getFileContent(file);
+        let filename = FileUtils.getFileName(file);
+        let content = FileUtils.getFileContent(file);
 
         let output = MarkdownParser(content);
 
