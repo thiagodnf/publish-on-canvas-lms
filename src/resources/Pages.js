@@ -16,7 +16,7 @@ export default function Pages(input = "") {
 
     core.info("Processings Pages");
 
-    const files = FileUtils.loadFiles([input]);
+    const files = FileUtils.loadFiles(input);
 
     core.info(`Found ${files.size} file(s). Processing them:`);
 

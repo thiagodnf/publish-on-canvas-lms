@@ -11376,7 +11376,9 @@ class FileUtils {
         return external_fs_.existsSync(fileOrPath);
     }
 
-    static loadFiles(array) {
+    static loadFiles(input) {
+
+        let array = Array.isArray(input) ? input : [input];
 
         core.debug("Loading all files");
 
@@ -11422,6 +11424,7 @@ class FileUtils {
         return external_fs_.readFileSync(filePath, { encoding });
     }
 }
+
 // EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
 var showdown = __nccwpck_require__(1872);
 ;// CONCATENATED MODULE: ./src/parsers/MarkdownParser.js
@@ -11482,7 +11485,7 @@ function Pages(input = "") {
 
     core.info("Processings Pages");
 
-    const files = FileUtils.loadFiles([input]);
+    const files = FileUtils.loadFiles(input);
 
     core.info(`Found ${files.size} file(s). Processing them:`);
 

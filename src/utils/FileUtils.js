@@ -21,7 +21,9 @@ export default class FileUtils {
         return fs.existsSync(fileOrPath);
     }
 
-    static loadFiles(array) {
+    static loadFiles(input) {
+
+        let array = Array.isArray(input) ? input : [input];
 
         core.debug("Loading all files");
 
