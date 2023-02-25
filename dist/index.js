@@ -6271,7 +6271,7 @@ async function run() {
     core.info(canvas_pages);
     core.info(canvas_assignments);
 
-    const files = FileUtils.loadFiles(canvas_pages);
+    const files = FileUtils.loadFiles([canvas_pages]);
 
     core.info(`Found ${files.size} file(s). Checking them:`);
 
