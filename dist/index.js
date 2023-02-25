@@ -19445,6 +19445,7 @@ axios.default = axios;
 ;// CONCATENATED MODULE: ./src/utils/CanvasApiUtils.js
 
 
+
 class CanvasApiUtils {
 
     static API_URL = "https://canvas.flint.umich.edu/api/v1";
@@ -19464,6 +19465,8 @@ class CanvasApiUtils {
     static async put(url, data) {
 
         url = url.replace(":course_id", CanvasApiUtils.COURSE_ID);
+
+        core.info(`Sending request to ${url}`);
 
         return new Promise((resolve, reject) => {
 

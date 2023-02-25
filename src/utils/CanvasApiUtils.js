@@ -1,4 +1,5 @@
 import axios from "axios";
+import core from "@actions/core";
 
 export default class CanvasApiUtils {
 
@@ -19,6 +20,8 @@ export default class CanvasApiUtils {
     static async put(url, data) {
 
         url = url.replace(":course_id", CanvasApiUtils.COURSE_ID);
+
+        core.info(`Sending request to ${url}`);
 
         return new Promise((resolve, reject) => {
 
