@@ -6,6 +6,7 @@ import Pages from "./src/resources/Pages.js";
 // packages have async methods
 async function run() {
 
+    core.info(process.env);
     try {
 
         Pages(core.getInput("canvas_pages"));
