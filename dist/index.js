@@ -62208,15 +62208,17 @@ class CanvasApiUtils {
         };
     }
 
-    static async put(url, data) {
+    static async put(resource, data) {
 
-        url = url.replace(":course_id", CanvasApiUtils.COURSE_ID);
+        resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.debug(`Sending request to ${url}`);
+        core.debug(`Sending request to ${resource}`);
+
+        let url = `${CanvasApiUtils.API_URL}${resource}`;
 
         return new Promise((resolve, reject) => {
 
-            lib_axios.put(`${CanvasApiUtils.API_URL}${url}`, data, CanvasApiUtils.getHeaders())
+            lib_axios.put(url, data, CanvasApiUtils.getHeaders())
                 .then(resolve)
                 .catch(reject);
         });
@@ -62228,11 +62230,11 @@ class CanvasApiUtils {
             wiki_page: fields
         };
 
-        let url = "/courses/:course_id/pages/:url_or_id";
+        let resource = "/courses/:course_id/pages/:url_or_id";
 
-        url = url.replace(":url_or_id", pageUrlOrId);
+        resource = resource.replace(":url_or_id", pageUrlOrId);
 
-        return CanvasApiUtils.put(url, data);
+        return CanvasApiUtils.put(resource, data);
     }
 }
 
