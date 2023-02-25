@@ -43580,7 +43580,7 @@ var Strikethrough = function () {
     var plugin = {
         type: "lang",
         regex: /~~(.*)~~/g,
-        replace: "<s>$1</s>"
+        replace: "<del>$1</del>"
     };
 
     return [plugin];
