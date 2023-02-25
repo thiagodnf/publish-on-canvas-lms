@@ -1,6 +1,7 @@
 import core from "@actions/core";
+import FileUtils from "../utils/FileUtils.js";
 
-export default function Pages(input = ""){
+export default function Pages(input = "") {
 
     core.info("Processings Pages");
 
@@ -11,5 +12,4 @@ export default function Pages(input = ""){
     files.forEach(file => {
         core.info(`Processing: ${file}`);
     });
-
 }
