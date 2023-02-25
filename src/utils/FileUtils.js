@@ -62,7 +62,7 @@ export default class FileUtils {
         return fs.readdirSync(path).length === 0;
     }
 
-    static getContent(file, encoding = "utf-8") {
+    static getFileContent(file, encoding = "utf-8") {
 
         const filePath = path.join(FileUtils.getWorkspacePath(), file);
 

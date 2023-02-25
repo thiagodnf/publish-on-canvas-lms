@@ -26,11 +26,10 @@ export default function Pages(input = "") {
         core.info(`Processing: ${file}`);
 
         let filename = FileUtils.getFileName(file);
-        let content = FileUtils.getContent(file);
+        let content = FileUtils.getFileContent(file);
 
         let output = MarkdownParser(content);
 
-        CanvasApiUtils.createUpdatePages(filename, {body: output});
-        core.info(output);
+        CanvasApiUtils.createOrUpdatePages(filename, { body: output });
     });
 }

@@ -14819,6 +14819,30 @@ var __webpack_exports__ = {};
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
+// EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
+var showdown = __nccwpck_require__(1872);
+;// CONCATENATED MODULE: ./src/parsers/MarkdownParser.js
+
+
+
+const converter = new showdown.Converter({
+    noHeaderId: true,
+    tables: true,       // Enable support for tables synta
+    tasklists: true,     //  Enable support for GFM tasklists,
+    extensions: []
+});
+
+function MarkdownParser(content = "") {
+
+    let css = FileUtils.readFile("bootstrap.min.css");
+
+    let html = converter.makeHtml(content);
+
+    core.info(css);
+
+    return html;
+}
+
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -14834,11 +14858,11 @@ var glob = __nccwpck_require__(1957);
 
 
 
-class FileUtils {
+class FileUtils_FileUtils {
 
     static isWorkspaceEmpty() {
 
-        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
+        return FileUtils_FileUtils.isEmpty(FileUtils_FileUtils.getWorkspacePath());
     }
 
     static getWorkspacePath() {
@@ -14863,7 +14887,7 @@ class FileUtils {
 
             core.debug(`Processing: ${el}`);
 
-            FileUtils.searchFiles(el).forEach(file => {
+            FileUtils_FileUtils.searchFiles(el).forEach(file => {
 
                 core.debug(`Adding file: ${file}`);
 
@@ -14877,7 +14901,7 @@ class FileUtils {
     static searchFiles(pattern) {
 
         const options = {
-            cwd: FileUtils.getWorkspacePath()
+            cwd: FileUtils_FileUtils.getWorkspacePath()
         };
 
         return glob.glob.sync(pattern, options);
@@ -14885,16 +14909,16 @@ class FileUtils {
 
     static isEmpty(path) {
 
-        if (!FileUtils.exists(path)) {
+        if (!FileUtils_FileUtils.exists(path)) {
             throw new Error(`${path} does not exist`);
         }
 
         return external_fs_.readdirSync(path).length === 0;
     }
 
-    static getContent(file, encoding = "utf-8") {
+    static getFileContent(file, encoding = "utf-8") {
 
-        const filePath = external_path_.join(FileUtils.getWorkspacePath(), file);
+        const filePath = external_path_.join(FileUtils_FileUtils.getWorkspacePath(), file);
 
         return external_fs_.readFileSync(filePath, { encoding });
     }
@@ -14904,30 +14928,12 @@ class FileUtils {
     }
 
     static getFileName(filename) {
-        return FileUtils.parse(filename).name;
+        return FileUtils_FileUtils.parse(filename).name;
     }
 
     static getFileExtension(filename) {
-        return FileUtils.parse(filename).ext;
+        return FileUtils_FileUtils.parse(filename).ext;
     }
-}
-
-// EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
-var showdown = __nccwpck_require__(1872);
-;// CONCATENATED MODULE: ./src/parsers/MarkdownParser.js
-
-
-const converter = new showdown.Converter({
-    noHeaderId: true,
-    tables: true,       // Enable support for tables synta
-    tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: []
-});
-
-function MarkdownParser(content = "") {
-
-
-    return converter.makeHtml(content);;
 }
 
 ;// CONCATENATED MODULE: ./src/utils/StringUtils.js
@@ -19466,7 +19472,7 @@ class CanvasApiUtils {
 
         url = url.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.info(`Sending request to ${url}`);
+        core.debug(`Sending request to ${url}`);
 
         return new Promise((resolve, reject) => {
 
@@ -19476,7 +19482,7 @@ class CanvasApiUtils {
         });
     }
 
-    static createUpdatePages(pageUrlOrId, fields = {}) {
+    static createOrUpdatePages(pageUrlOrId, fields = {}) {
 
         const data = {
             wiki_page: fields
@@ -19510,7 +19516,7 @@ function Pages(input = "") {
 
     core.info("Processings Pages");
 
-    const files = FileUtils.loadFiles(input);
+    const files = FileUtils_FileUtils.loadFiles(input);
 
     core.info(`Found ${files.size} file(s). Processing them:`);
 
@@ -19518,13 +19524,12 @@ function Pages(input = "") {
 
         core.info(`Processing: ${file}`);
 
-        let filename = FileUtils.getFileName(file);
-        let content = FileUtils.getContent(file);
+        let filename = FileUtils_FileUtils.getFileName(file);
+        let content = FileUtils_FileUtils.getFileContent(file);
 
         let output = MarkdownParser(content);
 
-        CanvasApiUtils.createUpdatePages(filename, {body: output});
-        core.info(output);
+        CanvasApiUtils.createOrUpdatePages(filename, { body: output });
     });
 }
 
@@ -19532,12 +19537,10 @@ function Pages(input = "") {
 
 
 
-
 // most @actions toolkit
 // packages have async methods
 async function run() {
 
-    core.info(JSON.stringify(process.env));
     try {
 
         Pages(core.getInput("canvas_pages"));

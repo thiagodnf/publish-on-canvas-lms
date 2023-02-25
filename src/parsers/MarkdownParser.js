@@ -1,4 +1,5 @@
 import showdown from "showdown";
+import core from "@actions/core";
 
 const converter = new showdown.Converter({
     noHeaderId: true,
@@ -9,6 +10,11 @@ const converter = new showdown.Converter({
 
 export default function MarkdownParser(content = "") {
 
+    let css = FileUtils.readFile("bootstrap.min.css");
 
-    return converter.makeHtml(content);;
+    let html = converter.makeHtml(content);
+
+    core.info(css);
+
+    return html;
 }

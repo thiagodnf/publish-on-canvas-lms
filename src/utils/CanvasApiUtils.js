@@ -21,7 +21,7 @@ export default class CanvasApiUtils {
 
         url = url.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.info(`Sending request to ${url}`);
+        core.debug(`Sending request to ${url}`);
 
         return new Promise((resolve, reject) => {
 
@@ -31,7 +31,7 @@ export default class CanvasApiUtils {
         });
     }
 
-    static createUpdatePages(pageUrlOrId, fields = {}) {
+    static createOrUpdatePages(pageUrlOrId, fields = {}) {
 
         const data = {
             wiki_page: fields
