@@ -1,6 +1,8 @@
 import showdown from "showdown";
 import core from "@actions/core";
 import juice from "juice";
+import postcss from "postcss";
+import cssvariables from "postcss-css-variables";
 
 import FileUtils from "../utils/FileUtils.js";
 
@@ -14,6 +16,8 @@ const converter = new showdown.Converter({
 export default function MarkdownParser(content = "") {
 
     let css = FileUtils.getFileContent("bootstrap.min.css");
+
+    css = postcss([cssvariables()]).process(css).css;
 
     let html = converter.makeHtml(content);
 

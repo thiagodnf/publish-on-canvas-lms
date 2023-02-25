@@ -29,6 +29,8 @@
         "@actions/core": "^1.10.0",
         "axios": "^1.3.4",
         "juice": "^8.1.0",
+        "postcss": "^8.4.21",
+        "postcss-css-variables": "^0.18.0",
         "showdown": "^2.1.0"
     },
     "devDependencies": {
