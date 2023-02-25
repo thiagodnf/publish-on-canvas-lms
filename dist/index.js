@@ -52987,7 +52987,7 @@ const converter = new showdown.Converter({
 
 function MarkdownParser(content = "") {
 
-    let css = FileUtils.getFileContent("my-bootstrap.css");
+    let css = FileUtils.getFileContent(process.env.CSS || "bootstrap.css");
 
     css = lib_postcss([postcss_css_variables()]).process(css).css;
 
