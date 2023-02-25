@@ -20,6 +20,11 @@ export default function Pages(input = "") {
     core.info(`Found ${files.size} file(s). Processing them:`);
 
     files.forEach(file => {
+
         core.info(`Processing: ${file}`);
+
+        let content = FileUtils.getContent(file);
+
+        core.info(content);
     });
 }
