@@ -6179,7 +6179,7 @@ var __webpack_exports__ = {};
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var lib_core = __nccwpck_require__(2186);
+var core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -6189,6 +6189,7 @@ const external_process_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import
 // EXTERNAL MODULE: ./node_modules/glob/glob.js
 var glob = __nccwpck_require__(1957);
 ;// CONCATENATED MODULE: ./src/utils/FileUtils.js
+
 
 
 
@@ -6264,18 +6265,18 @@ class FileUtils {
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-    const canvas_pages = lib_core.getInput("canvas_pages");
-    const canvas_assignments = lib_core.getInput("canvas_assignments");
+    const canvas_pages = core.getInput("canvas_pages");
+    const canvas_assignments = core.getInput("canvas_assignments");
 
-    lib_core.info(canvas_pages);
-    lib_core.info(canvas_assignments);
+    core.info(canvas_pages);
+    core.info(canvas_assignments);
 
     const files = FileUtils.loadFiles(canvas_pages);
 
-    lib_core.info(`Found ${files.size} file(s). Checking them:`);
+    core.info(`Found ${files.size} file(s). Checking them:`);
 
     files.forEach(file => {
-      lib_core.debug(`Processing: ${file}`);
+      core.debug(`Processing: ${file}`);
     });
     // const ms = core.getInput('milliseconds');
 
@@ -6285,9 +6286,9 @@ async function run() {
     // await wait(parseInt(ms));
     // core.info((new Date()).toTimeString());
 
-    lib_core.setOutput("time", new Date().toTimeString());
+    core.setOutput("time", new Date().toTimeString());
   } catch (error) {
-    lib_core.setFailed(error.message);
+    core.setFailed(error.message);
   }
 }
 

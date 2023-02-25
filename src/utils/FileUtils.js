@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import { glob } from "glob";
+import core from "@actions/core";
 
 export default class FileUtils {
 
