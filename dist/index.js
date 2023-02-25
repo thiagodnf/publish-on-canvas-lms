@@ -6179,7 +6179,7 @@ var __webpack_exports__ = {};
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(2186);
+var lib_core = __nccwpck_require__(2186);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -6187,7 +6187,7 @@ var external_path_ = __nccwpck_require__(5622);
 ;// CONCATENATED MODULE: external "process"
 const external_process_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("process");
 // EXTERNAL MODULE: ./node_modules/glob/glob.js
-var glob = __nccwpck_require__(1957);
+var glob_glob = __nccwpck_require__(1957);
 ;// CONCATENATED MODULE: ./src/utils/FileUtils.js
 
 
@@ -6195,21 +6195,21 @@ var glob = __nccwpck_require__(1957);
 
 
 
-class FileUtils {
+class FileUtils_FileUtils {
 
     static isWorkspaceEmpty() {
 
-        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
+        return FileUtils_FileUtils.isEmpty(FileUtils_FileUtils.getWorkspacePath());
     }
 
     static getWorkspacePath() {
 
-        return external_process_namespaceObject.env.GITHUB_WORKSPACE || "";
+        return process.env["GITHUB_WORKSPACE"] || "";
     }
 
     static exists(fileOrPath) {
 
-        return external_fs_.existsSync(fileOrPath);
+        return fs.existsSync(fileOrPath);
     }
 
     static loadFiles(array) {
@@ -6222,7 +6222,7 @@ class FileUtils {
 
             core.debug(`Processing: ${el}`);
 
-            FileUtils.searchFiles(el).forEach(file => {
+            FileUtils_FileUtils.searchFiles(el).forEach(file => {
 
                 core.debug(`Adding file: ${file}`);
 
@@ -6236,60 +6236,75 @@ class FileUtils {
     static searchFiles(pattern) {
 
         const options = {
-            cwd: FileUtils.getWorkspacePath()
+            cwd: FileUtils_FileUtils.getWorkspacePath()
         };
 
-        return glob.glob.sync(pattern, options);
+        return glob.sync(pattern, options);
     }
 
     static isEmpty(path) {
 
-        if (!FileUtils.exists(path)) {
+        if (!FileUtils_FileUtils.exists(path)) {
             throw new Error(`${path} does not exist`);
         }
 
-        return external_fs_.readdirSync(path).length === 0;
+        return fs.readdirSync(path).length === 0;
     }
 
     static getContent(file, encoding = "utf-8") {
 
-        const filePath = external_path_.join(FileUtils.getWorkspacePath(), file);
+        const filePath = path.join(FileUtils_FileUtils.getWorkspacePath(), file);
 
-        return external_fs_.readFileSync(filePath, { encoding });
+        return fs.readFileSync(filePath, { encoding });
     }
 }
+;// CONCATENATED MODULE: ./src/resources/Pages.js
+
+
+function Pages(input = ""){
+
+    lib_core.info("Processings Pages");
+
+    const files = FileUtils.loadFiles([input]);
+
+    lib_core.info(`Found ${files.size} file(s). Checking them:`);
+
+    files.forEach(file => {
+        lib_core.info(`Processing: ${file}`);
+    });
+
+}
+
 ;// CONCATENATED MODULE: ./index.js
 
 
 
-// most @actions toolkit packages have async methods
+
+// most @actions toolkit
+// packages have async methods
 async function run() {
-  try {
-    const canvas_pages = core.getInput("canvas_pages");
-    const canvas_assignments = core.getInput("canvas_assignments");
 
-    core.info(canvas_pages);
-    core.info(canvas_assignments);
+    try {
 
-    const files = FileUtils.loadFiles([canvas_pages]);
+        Pages(lib_core.getInput("canvas_pages"));
 
-    core.info(`Found ${files.size} file(s). Checking them:`);
+        // const canvas_assignments = core.getInput("canvas_assignments");
 
-    files.forEach(file => {
-      core.debug(`Processing: ${file}`);
-    });
-    // const ms = core.getInput('milliseconds');
+        // core.info(canvas_pages);
+        // core.info(canvas_assignments);
 
-    // core.info(`Waiting ${ms} milliseconds ...`);
+        // // const files = FileUtils.loadFiles([canvas_pages]);
 
-    // core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    // await wait(parseInt(ms));
-    // core.info((new Date()).toTimeString());
+        // core.info(`Found ${files.size} file(s). Checking them:`);
 
-    core.setOutput("time", new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+        // files.forEach(file => {
+        //     core.info(`Processing: ${file}`);
+        // });
+
+        lib_core.setOutput("time", new Date().toTimeString());
+    } catch (error) {
+        lib_core.setFailed(error.message);
+    }
 }
 
 run();
