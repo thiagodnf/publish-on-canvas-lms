@@ -1,34 +1,32 @@
 import core from "@actions/core";
 import FileUtils from "./src/utils/FileUtils.js";
+import Pages from "./src/resources/Pages.js";
 
-// most @actions toolkit packages have async methods
+// most @actions toolkit
+// packages have async methods
 async function run() {
-  try {
-    const canvas_pages = core.getInput("canvas_pages");
-    const canvas_assignments = core.getInput("canvas_assignments");
 
-    core.info(canvas_pages);
-    core.info(canvas_assignments);
+    try {
 
-    const files = FileUtils.loadFiles([canvas_pages]);
+        Pages(core.getInput("canvas_pages"));
 
-    core.info(`Found ${files.size} file(s). Checking them:`);
+        // const canvas_assignments = core.getInput("canvas_assignments");
 
-    files.forEach(file => {
-      core.debug(`Processing: ${file}`);
-    });
-    // const ms = core.getInput('milliseconds');
+        // core.info(canvas_pages);
+        // core.info(canvas_assignments);
 
-    // core.info(`Waiting ${ms} milliseconds ...`);
+        // // const files = FileUtils.loadFiles([canvas_pages]);
 
-    // core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    // await wait(parseInt(ms));
-    // core.info((new Date()).toTimeString());
+        // core.info(`Found ${files.size} file(s). Checking them:`);
 
-    core.setOutput("time", new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+        // files.forEach(file => {
+        //     core.info(`Processing: ${file}`);
+        // });
+
+        core.setOutput("time", new Date().toTimeString());
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 }
 
 run();
