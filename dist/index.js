@@ -19537,7 +19537,7 @@ function Pages(input = "") {
 // packages have async methods
 async function run() {
 
-    core.info(process.env);
+    core.info(JSON.stringify(process.env));
     try {
 
         Pages(core.getInput("canvas_pages"));
