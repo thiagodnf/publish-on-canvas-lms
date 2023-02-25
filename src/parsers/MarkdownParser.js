@@ -1,5 +1,6 @@
 import showdown from "showdown";
 import core from "@actions/core";
+import juice from "juice";
 
 import FileUtils from "../utils/FileUtils.js";
 
@@ -16,7 +17,7 @@ export default function MarkdownParser(content = "") {
 
     let html = converter.makeHtml(content);
 
-    core.info(css);
+    html = juice(`<style>${css}</style>${html}`);
 
     return html;
 }
