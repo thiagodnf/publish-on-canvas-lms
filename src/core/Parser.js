@@ -12,7 +12,7 @@ export default function parser(content, css) {
 
     let html = converter.makeHtml(content);
 
-    html = juice(`<style>${css}</style>${html}`);
+    html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
     return html;
 }
