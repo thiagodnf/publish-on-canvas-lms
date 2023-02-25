@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "JavaScript Action Template",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
     "eslint": "^8.0.0",
-    "jest": "^27.2.5"
+    "jest": "^27.2.5",
+    "glob": "8.0.3"
   }
 }
