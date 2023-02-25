@@ -31,6 +31,7 @@
         "juice": "^8.1.0",
         "postcss": "^8.4.21",
         "postcss-css-variables": "^0.18.0",
+        "postcss-nested": "^6.0.1",
         "showdown": "^2.1.0"
     },
     "devDependencies": {

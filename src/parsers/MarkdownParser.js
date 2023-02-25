@@ -1,8 +1,10 @@
 import showdown from "showdown";
 import core from "@actions/core";
 import juice from "juice";
+
 import postcss from "postcss";
 import cssvariables from "postcss-css-variables";
+import nested from "postcss-nested";
 
 import FileUtils from "../utils/FileUtils.js";
 
@@ -17,7 +19,13 @@ export default function MarkdownParser(content = "") {
 
     let css = FileUtils.getFileContent(process.env.CSS || "bootstrap.css");
 
-    css = postcss([cssvariables()]).process(css).css;
+    css = postcss([
+        // Flatten/unnest rules
+        nested,
+        // Then process any CSS variables
+        cssvariables(/*options*/)
+      ]).process(css).css;
+
 
     core.info(css);
 
