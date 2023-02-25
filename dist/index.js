@@ -6258,17 +6258,50 @@ class FileUtils {
         return external_fs_.readFileSync(filePath, { encoding });
     }
 }
+;// CONCATENATED MODULE: ./src/utils/StringUtils.js
+class StringUtils {
+
+    static isString(str) {
+
+        return typeof str === "string" || str instanceof String;
+    }
+
+    static isBlank(str) {
+
+        if (!str) {
+            return true;
+        }
+
+        if (!StringUtils.isString(str)) {
+            return false;
+        }
+
+        return str.trim().length === 0;
+    }
+
+}
+
 ;// CONCATENATED MODULE: ./src/resources/Pages.js
 
 
 
+
+/**
+ * Process files related to Canvas's Pages
+ * @param {string} input the list of all files
+ * @returns
+ */
 function Pages(input = "") {
+
+    if (StringUtils.isBlank(input)) {
+        return;
+    }
 
     core.info("Processings Pages");
 
     const files = FileUtils.loadFiles([input]);
 
-    core.info(`Found ${files.size} file(s). Checking them:`);
+    core.info(`Found ${files.size} file(s). Processing them:`);
 
     files.forEach(file => {
         core.info(`Processing: ${file}`);
@@ -6288,20 +6321,6 @@ async function run() {
 
         Pages(core.getInput("canvas_pages"));
 
-        // const canvas_assignments = core.getInput("canvas_assignments");
-
-        // core.info(canvas_pages);
-        // core.info(canvas_assignments);
-
-        // // const files = FileUtils.loadFiles([canvas_pages]);
-
-        // core.info(`Found ${files.size} file(s). Checking them:`);
-
-        // files.forEach(file => {
-        //     core.info(`Processing: ${file}`);
-        // });
-
-        core.setOutput("time", new Date().toTimeString());
     } catch (error) {
         core.setFailed(error.message);
     }
