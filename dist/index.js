@@ -43604,7 +43604,37 @@ var Card = function () {
 
 /* harmony default export */ const extensions_Card = (Card);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/Alert.js
+var Alert = function () {
+
+    var plugin = {
+        type: "lang",
+        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
+        // replace: "<div class='card'>$1</div>"
+        filter: function (text, converter) {
+
+            var regex = new RegExp(/\[!Alert\]\{(.*)\}((\n|\r|.)*?)\[Alert\]/, "g");
+
+            text = text.trim().replace(regex, function (match, classes, content) {
+
+                content = converter.makeHtml(content.trim());
+
+                content = content.replace(/^<p>(.*)<\/p>$/, "$1");
+
+                return `<div class="alert alert-${classes}" role="alert">${content}</div>`;
+            });
+
+            return text;
+        }
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Alert = (Alert);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -43617,7 +43647,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card]
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert]
 });
 
 function parser(content, css) {
