@@ -45,4 +45,17 @@ export default class CanvasApiUtils {
 
         return CanvasApiUtils.put(resource, data);
     }
+
+    static updateAssignments(assignmentId, fields = {}) {
+
+        const data = {
+            assignment: fields
+        };
+
+        let resource = "/api/v1/courses/:course_id/assignments/:id";
+
+        resource = resource.replace(":id", assignmentId);
+
+        return CanvasApiUtils.put(resource, data);
+    }
 }

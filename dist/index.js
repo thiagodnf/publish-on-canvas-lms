@@ -106822,6 +106822,19 @@ class CanvasApiUtils {
 
         return CanvasApiUtils.put(resource, data);
     }
+
+    static updateAssignments(assignmentId, fields = {}) {
+
+        const data = {
+            assignment: fields
+        };
+
+        let resource = "/api/v1/courses/:course_id/assignments/:id";
+
+        resource = resource.replace(":id", assignmentId);
+
+        return CanvasApiUtils.put(resource, data);
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/resources/Pages.js
@@ -106872,6 +106885,58 @@ function Pages(files, css = "") {
     });
 }
 
+;// CONCATENATED MODULE: ./src/resources/Assignments.js
+
+
+
+
+
+
+/**
+ * Process files related to Canvas's Pages
+ * @param {string} files the list of all files
+ * @returns
+ */
+function Assignments(files, css = "") {
+
+    core.info("Processings Assignments");
+
+    if (StringUtils.isBlank(files)) {
+        return;
+    }
+
+    if (!StringUtils.isBlank(css)) {
+
+        core.info("Loading .css file");
+
+        css = FileUtils.getFileContent(css);
+
+        core.info(css);
+    }
+
+    core.info("Loading files...");
+
+    files = FileUtils.loadFiles(files);
+
+    core.info(`Found ${files.size} file(s). Processing them...`);
+
+    files.forEach(file => {
+
+        core.info(`Processing: ${file}`);
+
+        let fileContent = FileUtils.getFileContent(file);
+
+        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent);
+
+        if (assignmentId) {
+
+            let output = parser(fileContent, css);
+
+            CanvasApiUtils.updateAssignments(assignmentId, { description: output });
+        }
+    });
+}
+
 ;// CONCATENATED MODULE: ./index.js
 
 
@@ -106892,6 +106957,9 @@ async function run() {
 
         if (resource === "pages") {
             Pages(files, css);
+        }
+        if (resource === "assignments") {
+            Assignments(files, css);
         }
 
     } catch (error) {

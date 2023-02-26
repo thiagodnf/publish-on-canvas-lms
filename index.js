@@ -1,6 +1,6 @@
 import core from "@actions/core";
 import Pages from "./src/resources/Pages.js";
-
+import Assignments from "./src/resources/Assignments.js";
 // most @actions toolkit
 // packages have async methods
 async function run() {
@@ -17,6 +17,9 @@ async function run() {
 
         if (resource === "pages") {
             Pages(files, css);
+        }
+        if (resource === "assignments") {
+            Assignments(files, css);
         }
 
     } catch (error) {
