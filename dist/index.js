@@ -43602,7 +43602,37 @@ var Card = function () {
 
 /* harmony default export */ const extensions_Card = (Card);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/CardBody.js
+var CardBody = function () {
+
+    var plugin = {
+        type: "lang",
+        regex: /\[!CardBody\]((\n|\r|.)*?)\[CardBody\]/g,
+        replace: "<div class='card-body'>$1</div>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_CardBody = (CardBody);
+
+;// CONCATENATED MODULE: ./src/parser/extensions/CardHeader.js
+var CardHeader = function () {
+
+    var plugin = {
+        type: "lang",
+        regex: /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g,
+        replace: "<div class='card-header'>$1</div>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_CardHeader = (CardHeader);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
+
 
 
 
@@ -43613,7 +43643,7 @@ const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [extensions_Highlight, extensions_Strikethrough, extensions_Card]
+    extensions: [extensions_Highlight, extensions_Strikethrough, extensions_Card, extensions_CardHeader, extensions_CardBody]
 });
 
 function parser(content, css) {
