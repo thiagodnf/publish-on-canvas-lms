@@ -1,6 +1,6 @@
 import hljs from "highlight.js";
 import juice from "juice";
-import CodeHighlightUtils from "../../utils/CodeHighlightUtils";
+import CodeHighlightUtils from "../../utils/CodeHighlightUtils.js";
 
 var Code = function () {
 
