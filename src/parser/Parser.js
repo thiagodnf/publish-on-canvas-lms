@@ -2,12 +2,13 @@ import showdown from "showdown";
 import juice from "juice";
 import Highlight from "./extensions/Highlight.js";
 import Strikethrough from "./extensions/Strikethrough.js";
+import Card from "./extensions/Card.js";
 
 const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [Highlight, Strikethrough]
+    extensions: [Highlight, Strikethrough, Card]
 });
 
 export default function parser(content, css) {
