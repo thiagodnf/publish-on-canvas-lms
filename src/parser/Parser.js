@@ -4,6 +4,7 @@ import Highlight from "./extensions/Highlight.js";
 import Card from "./extensions/Card.js";
 import Alert from "./extensions/Alert.js";
 import Code from "./extensions/Code.js";
+import Tab from "./extensions/Tab.js";
 
 const converter = new showdown.Converter({
     noHeaderId: true,       // Disable automatic generation of heading IDs.
@@ -11,7 +12,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [Highlight, Card, Alert, Code]
+    extensions: [Highlight, Card, Alert, Code, Tab]
 });
 
 export default function parser(content, css) {
