@@ -102270,7 +102270,7 @@ var Tab = function () {
 
             text = text.replace(regex, function (match1, items) {
 
-                var itemRegex = new RegExp("((?:\\[!tabitem\\]\\((\\w+)\\)((\\n|\\r|.)*?)\\[tabitem\\]))", "gm");
+                var itemRegex = new RegExp("((?:\\[!tabitem\\]\\((.+)\\)((\\n|\\r|.)*?)\\[tabitem\\]))", "gm");
 
                 let navItems = [];
                 let tabPane = [];

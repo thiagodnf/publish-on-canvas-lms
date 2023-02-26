@@ -13,6 +13,10 @@ agora vai dar cert *italic*
 Acho que não **Bold**
 [tabitem]
 
+[!tabitem](Profile Teste)
+Acho que não **Bold**
+[tabitem]
+
 [tab]
     `;
 
