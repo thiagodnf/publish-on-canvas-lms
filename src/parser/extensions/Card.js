@@ -15,12 +15,7 @@ var Card = function () {
 
                 header = header.replace(/^<p>(.*)<\/p>$/, "$1");
 
-                return `
-                    <div class='card ${classes}'>
-                        <div class="card-header">${header}</div>
-                        <div class="card-body">${content}</div>
-                    </div>
-                `.trim();
+                return `<div class='card'><div class="card-header ${classes}">${header}</div><div class="card-body">${content}</div></div>`;
             });
 
             return text;
