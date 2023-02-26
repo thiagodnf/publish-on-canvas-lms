@@ -4,9 +4,11 @@ var CardHeader = function () {
         type: "lang",
         // regex: /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g,
         // replace: "<div class='card-header'>$1</div>"
-        filter: function (text, converter, options) {
+        filter: function (text, converter) {
 
-            var regex = /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g;
+            // var regex = /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g;
+
+            var regex = new RegExp(/\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/, "g");
 
             text = text.replace(regex, function (match, content) {
 
