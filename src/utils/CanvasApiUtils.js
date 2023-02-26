@@ -21,7 +21,7 @@ export default class CanvasApiUtils {
 
         resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.debug(`Sending request to ${resource}`);
+        core.info(`Sending request to ${resource}`);
 
         let url = `${CanvasApiUtils.API_URL}${resource}`;
 

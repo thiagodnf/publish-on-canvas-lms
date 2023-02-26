@@ -106796,7 +106796,7 @@ class CanvasApiUtils {
 
         resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.debug(`Sending request to ${resource}`);
+        core.info(`Sending request to ${resource}`);
 
         let url = `${CanvasApiUtils.API_URL}${resource}`;
 
@@ -106860,8 +106860,6 @@ function Pages(files, css = "") {
         core.info("Loading .css file");
 
         css = FileUtils.getFileContent(css);
-
-        core.info(css);
     }
 
     core.info("Loading files...");
@@ -106908,8 +106906,6 @@ function Assignments(files, css = "") {
         core.info("Loading .css file");
 
         css = FileUtils.getFileContent(css);
-
-        core.info(css);
     }
 
     core.info("Loading files...");

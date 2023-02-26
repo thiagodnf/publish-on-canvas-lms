@@ -22,8 +22,6 @@ export default function Pages(files, css = "") {
         core.info("Loading .css file");
 
         css = FileUtils.getFileContent(css);
-
-        core.info(css);
     }
 
     core.info("Loading files...");
