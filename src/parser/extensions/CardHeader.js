@@ -12,7 +12,7 @@ var CardHeader = function () {
 
                 content = converter.makeHtml(content);
 
-                return `<div class='card'>${content}</div>`;
+                return `<div class='card-header'>${content}</div>`;
             });
 
             return text;
