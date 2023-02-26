@@ -1,4 +1,6 @@
 import hljs from "highlight.js";
+import juice from "juice";
+import CodeHighlightUtils from "../../utils/CodeHighlightUtils";
 
 var Code = function () {
 
@@ -13,6 +15,9 @@ var Code = function () {
                 const language = classes.replace(/language-(.*)/g, "").trim();
 
                 let html = hljs.highlight(code, { language }).value;
+                let css = CodeHighlightUtils.getDefaultHighlight();
+
+                html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
                 return `<code class='${classes}'>${html}</code>`;
             });

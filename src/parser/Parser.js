@@ -1,7 +1,6 @@
 import showdown from "showdown";
 import juice from "juice";
 import Highlight from "./extensions/Highlight.js";
-import FileUtils from "../utils/FileUtils.js";
 import Card from "./extensions/Card.js";
 import Alert from "./extensions/Alert.js";
 import Code from "./extensions/Code.js";
@@ -17,11 +16,9 @@ const converter = new showdown.Converter({
 
 export default function parser(content, css) {
 
-    let cssForSourceCode = FileUtils.getFileContent("node_modules/highlight.js/styles/github.css");
-
     let html = converter.makeHtml(content);
 
-    html = juice(`<style>${css}</style><style>${cssForSourceCode}</style>${html}`, { preserveImportant: true });
+    html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
     return html;
 }

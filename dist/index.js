@@ -101845,6 +101845,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 2174:
+/***/ ((module) => {
+
+module.exports = eval("require")("../../utils/CodeHighlightUtils");
+
+
+/***/ }),
+
 /***/ 2877:
 /***/ ((module) => {
 
@@ -102100,6 +102108,135 @@ var Highlight = function () {
 
 /* harmony default export */ const extensions_Highlight = (Highlight);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/Card.js
+var Card = function () {
+
+    var plugin = {
+        type: "lang",
+        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
+        // replace: "<div class='card'>$1</div>"
+        filter: function (text, converter) {
+
+            var regex = new RegExp(/\[!Card\]\((.*)\)\{(.*)\}((\n|\r|.)*?)\[Card\]/, "g");
+
+            text = text.trim().replace(regex, function (match, header, classes, content) {
+
+                header = converter.makeHtml(header.trim());
+                content = converter.makeHtml(content.trim());
+
+                header = header.replace(/^<p>(.*)<\/p>$/, "$1");
+
+                return `<div class='card'><div class="card-header ${classes}">${header}</div><div class="card-body">${content}</div></div>`;
+            });
+
+            return text;
+        }
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Card = (Card);
+
+;// CONCATENATED MODULE: ./src/parser/extensions/Alert.js
+var Alert = function () {
+
+    var plugin = {
+        type: "lang",
+        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
+        // replace: "<div class='card'>$1</div>"
+        filter: function (text, converter) {
+
+            var regex = new RegExp(/\[!Alert\]\{(.*)\}((\n|\r|.)*?)\[Alert\]/, "g");
+
+            text = text.trim().replace(regex, function (match, classes, content) {
+
+                content = converter.makeHtml(content.trim());
+
+                content = content.replace(/^<p>(.*)<\/p>$/, "$1");
+
+                return `<div class="alert alert-${classes}" role="alert">${content}</div>`;
+            });
+
+            return text;
+        }
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Alert = (Alert);
+
+// EXTERNAL MODULE: ./node_modules/highlight.js/lib/index.js
+var lib = __nccwpck_require__(82);
+;// CONCATENATED MODULE: ./node_modules/highlight.js/es/index.js
+// https://nodejs.org/api/packages.html#packages_writing_dual_packages_while_avoiding_or_minimizing_hazards
+
+
+/* harmony default export */ const es = (lib);
+
+// EXTERNAL MODULE: ./node_modules/@vercel/ncc/dist/ncc/@@notfound.js?../../utils/CodeHighlightUtils
+var CodeHighlightUtils = __nccwpck_require__(2174);
+;// CONCATENATED MODULE: ./src/parser/extensions/Code.js
+
+
+
+
+var Code = function () {
+
+    var plugin = {
+        type: "output",
+        filter: function (text, converter) {
+
+            var regex = new RegExp(/<code class="(.*)">((\n|\r|.)*?)<\/code>/, "g");
+
+            text = text.trim().replace(regex, function (match, classes, code) {
+
+                const language = classes.replace(/language-(.*)/g, "").trim();
+
+                let html = es.highlight(code, { language }).value;
+                let css = CodeHighlightUtils.getDefaultHighlight();
+
+                html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
+
+                return `<code class='${classes}'>${html}</code>`;
+            });
+
+            return text;
+        }
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Code = (Code);
+
+;// CONCATENATED MODULE: ./src/parser/Parser.js
+
+
+
+
+
+
+
+const converter = new showdown.Converter({
+    noHeaderId: true,       // Disable automatic generation of heading IDs.
+    tables: true,       // Enable support for tables synta
+    tasklists: true,     //  Enable support for GFM tasklists,
+    strikethrough: true, // Enable support for strikethrough,
+    simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code]
+});
+
+function parser(content, css) {
+
+    let html = converter.makeHtml(content);
+
+    html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
+
+    return html;
+}
+
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: external "path"
@@ -102191,131 +102328,6 @@ class FileUtils {
 
         return external_fs_.readFileSync(filePath, { encoding });
     }
-}
-
-;// CONCATENATED MODULE: ./src/parser/extensions/Card.js
-var Card = function () {
-
-    var plugin = {
-        type: "lang",
-        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
-        // replace: "<div class='card'>$1</div>"
-        filter: function (text, converter) {
-
-            var regex = new RegExp(/\[!Card\]\((.*)\)\{(.*)\}((\n|\r|.)*?)\[Card\]/, "g");
-
-            text = text.trim().replace(regex, function (match, header, classes, content) {
-
-                header = converter.makeHtml(header.trim());
-                content = converter.makeHtml(content.trim());
-
-                header = header.replace(/^<p>(.*)<\/p>$/, "$1");
-
-                return `<div class='card'><div class="card-header ${classes}">${header}</div><div class="card-body">${content}</div></div>`;
-            });
-
-            return text;
-        }
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_Card = (Card);
-
-;// CONCATENATED MODULE: ./src/parser/extensions/Alert.js
-var Alert = function () {
-
-    var plugin = {
-        type: "lang",
-        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
-        // replace: "<div class='card'>$1</div>"
-        filter: function (text, converter) {
-
-            var regex = new RegExp(/\[!Alert\]\{(.*)\}((\n|\r|.)*?)\[Alert\]/, "g");
-
-            text = text.trim().replace(regex, function (match, classes, content) {
-
-                content = converter.makeHtml(content.trim());
-
-                content = content.replace(/^<p>(.*)<\/p>$/, "$1");
-
-                return `<div class="alert alert-${classes}" role="alert">${content}</div>`;
-            });
-
-            return text;
-        }
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_Alert = (Alert);
-
-// EXTERNAL MODULE: ./node_modules/highlight.js/lib/index.js
-var lib = __nccwpck_require__(82);
-;// CONCATENATED MODULE: ./node_modules/highlight.js/es/index.js
-// https://nodejs.org/api/packages.html#packages_writing_dual_packages_while_avoiding_or_minimizing_hazards
-
-
-/* harmony default export */ const es = (lib);
-
-;// CONCATENATED MODULE: ./src/parser/extensions/Code.js
-
-
-var Code = function () {
-
-    var plugin = {
-        type: "output",
-        filter: function (text, converter) {
-
-            var regex = new RegExp(/<code class="(.*)">((\n|\r|.)*?)<\/code>/, "g");
-
-            text = text.trim().replace(regex, function (match, classes, code) {
-
-                const language = classes.replace(/language-(.*)/g, "").trim();
-
-                let html = es.highlight(code, { language }).value;
-
-                return `<code class='${classes}'>${html}</code>`;
-            });
-
-            return text;
-        }
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_Code = (Code);
-
-;// CONCATENATED MODULE: ./src/parser/Parser.js
-
-
-
-
-
-
-
-
-const converter = new showdown.Converter({
-    noHeaderId: true,       // Disable automatic generation of heading IDs.
-    tables: true,       // Enable support for tables synta
-    tasklists: true,     //  Enable support for GFM tasklists,
-    strikethrough: true, // Enable support for strikethrough,
-    simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code]
-});
-
-function parser(content, css) {
-
-    let cssForSourceCode = FileUtils.getFileContent("node_modules/highlight.js/styles/github.css");
-
-    let html = converter.makeHtml(content);
-
-    html = juice(`<style>${css}</style><style>${cssForSourceCode}</style>${html}`, { preserveImportant: true });
-
-    return html;
 }
 
 ;// CONCATENATED MODULE: ./src/utils/StringUtils.js
