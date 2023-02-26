@@ -3,9 +3,9 @@ import parser from "../../src/parser/Parser.js";
 test("throws invalid number", () => {
 
     const md = `
-[!Alert]{primary}
-A simple primary alert—check it out!
-[Alert]
+\`\`\`js
+const a = 10;
+\`\`\`
     `;
 
     const html = parser(md, "");
