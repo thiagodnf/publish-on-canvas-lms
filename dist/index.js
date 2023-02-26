@@ -106827,7 +106827,7 @@ class CanvasApiUtils {
             assignment: fields
         };
 
-        let resource = "/api/v1/courses/:course_id/assignments/:id";
+        let resource = "/courses/:course_id/assignments/:id";
 
         resource = resource.replace(":id", assignmentId);
 
