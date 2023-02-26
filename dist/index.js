@@ -106796,9 +106796,9 @@ class CanvasApiUtils {
 
         resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
 
-        core.info(`Sending request to ${resource}`);
-
         let url = `${CanvasApiUtils.API_URL}${resource}`;
+
+        core.info(`Sending [PUT] request to ${url}`);
 
         return new Promise((resolve, reject) => {
 
