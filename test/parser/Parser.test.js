@@ -3,7 +3,7 @@ import parser from "../../src/parser/Parser.js";
 test("throws invalid number", () => {
 
     const md = `
-[!Alert](primary)
+[!Alert]{primary}
 A simple primary alert—check it out!
 [Alert]
     `;
