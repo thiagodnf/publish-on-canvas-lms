@@ -15,8 +15,6 @@ var Code = function () {
 
                 code = StringUtils.unescapeHtml(code);
 
-                console.log(code);
-
                 const language = classes.replace(/language-(.*)/g, "").trim();
 
                 let html = hljs.highlight(code, { language }).value;

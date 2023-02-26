@@ -38,7 +38,7 @@ export default function Assignments(files, css = "") {
 
         let fileContent = FileUtils.getFileContent(file);
 
-        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent);
+        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent)[1];
 
         core.info(`AssignmentId: ${assignmentId}`);
 

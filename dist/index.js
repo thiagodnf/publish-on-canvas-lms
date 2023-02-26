@@ -102073,8 +102073,6 @@ var Code = function () {
 
                 code = StringUtils.unescapeHtml(code);
 
-                console.log(code);
-
                 const language = classes.replace(/language-(.*)/g, "").trim();
 
                 let html = es.highlight(code, { language }).value;
@@ -106926,7 +106924,7 @@ function Assignments(files, css = "") {
 
         let fileContent = FileUtils.getFileContent(file);
 
-        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent);
+        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent)[1];
 
         core.info(`AssignmentId: ${assignmentId}`);
 
