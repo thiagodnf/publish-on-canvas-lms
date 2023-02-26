@@ -102187,7 +102187,41 @@ class CodeHighlightUtils {
     }
 }
 
+;// CONCATENATED MODULE: ./src/utils/StringUtils.js
+class StringUtils {
+
+    static isString(str) {
+
+        return typeof str === "string" || str instanceof String;
+    }
+
+    static isBlank(str) {
+
+        if (!str) {
+            return true;
+        }
+
+        if (!StringUtils.isString(str)) {
+            return false;
+        }
+
+        return str.trim().length === 0;
+    }
+
+    static unescapeHtml(str) {
+
+        str = str.replace(/&lt;/g, "<");
+        str = str.replace(/&gt;/g, ">");
+        str = str.replace(/&quot;/g, "\"");
+        str = str.replace(/&#39;/g, "\'");
+        str = str.replace(/&amp;/g, "&");
+
+        return str;
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/parser/extensions/Code.js
+
 
 
 
@@ -102196,11 +102230,15 @@ var Code = function () {
 
     var plugin = {
         type: "output",
-        filter: function (text, converter) {
+        filter: function (text) {
 
             var regex = new RegExp(/<code class="(.*)">((\n|\r|.)*?)<\/code>/, "g");
 
             text = text.trim().replace(regex, function (match, classes, code) {
+
+                code = StringUtils.unescapeHtml(code);
+
+                console.log(code);
 
                 const language = classes.replace(/language-(.*)/g, "").trim();
 
@@ -102337,28 +102375,6 @@ class FileUtils {
         const filePath = external_path_.join(FileUtils.getWorkspacePath(), file);
 
         return external_fs_.readFileSync(filePath, { encoding });
-    }
-}
-
-;// CONCATENATED MODULE: ./src/utils/StringUtils.js
-class StringUtils {
-
-    static isString(str) {
-
-        return typeof str === "string" || str instanceof String;
-    }
-
-    static isBlank(str) {
-
-        if (!str) {
-            return true;
-        }
-
-        if (!StringUtils.isString(str)) {
-            return false;
-        }
-
-        return str.trim().length === 0;
     }
 }
 

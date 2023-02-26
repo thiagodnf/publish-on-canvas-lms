@@ -3,8 +3,8 @@ import parser from "../../src/parser/Parser.js";
 test("throws invalid number", () => {
 
     const md = `
-\`\`\`js
-const a = 10;
+\`\`\`html
+<p>oi</p>
 \`\`\`
     `;
 
