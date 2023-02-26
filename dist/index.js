@@ -106928,6 +106928,8 @@ function Assignments(files, css = "") {
 
         let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent);
 
+        core.info(`AssignmentId: ${assignmentId}`);
+
         if (assignmentId) {
 
             let output = parser(fileContent, css);
