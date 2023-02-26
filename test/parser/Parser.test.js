@@ -5,11 +5,11 @@ test("throws invalid number", () => {
     const md = `
 [!tab]
 
-[!tabitem Home]
-agora vai dar cert *italic* [!icon][check]
+[!tabitem](Home)
+agora vai dar cert *italic*
 [tabitem]
 
-[!tabitem Profile]
+[!tabitem](Profile)
 Acho que não **Bold**
 [tabitem]
 
