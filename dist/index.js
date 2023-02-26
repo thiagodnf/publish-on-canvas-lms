@@ -43574,20 +43574,6 @@ var Highlight = function () {
 
 /* harmony default export */ const extensions_Highlight = (Highlight);
 
-;// CONCATENATED MODULE: ./src/parser/extensions/Strikethrough.js
-var Strikethrough = function () {
-
-    var plugin = {
-        type: "lang",
-        regex: /~~(.*)~~/g,
-        replace: "<del>$1</del>"
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_Strikethrough = (Strikethrough);
-
 ;// CONCATENATED MODULE: ./src/parser/extensions/Card.js
 var Card = function () {
 
@@ -43625,13 +43611,13 @@ var Card = function () {
 
 
 
-
-
 const converter = new showdown.Converter({
-    noHeaderId: true,
+    noHeaderId: true,       // Disable automatic generation of heading IDs.
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [extensions_Highlight, extensions_Strikethrough, extensions_Card]
+    strikethrough: true, // Enable support for strikethrough,
+    simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
+    extensions: [extensions_Highlight, extensions_Card]
 });
 
 function parser(content, css) {
