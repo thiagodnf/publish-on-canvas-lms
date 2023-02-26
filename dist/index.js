@@ -102315,7 +102315,22 @@ var Tab = function () {
 
 /* harmony default export */ const extensions_Tab = (Tab);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/Icon.js
+var Icon = function () {
+
+    var plugin = {
+        type: "lang",
+        regex: /\[!icon\]\((.*)\)/g,
+        replace: "<i class=\"icon-$1\"></i>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_Icon = (Icon);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -102330,7 +102345,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab]
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon]
 });
 
 function parser(content, css) {
