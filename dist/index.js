@@ -43611,7 +43611,7 @@ var Card = function () {
                         <div class="card-header">${header}</div>
                         <div class="card-body">${content}</div>
                     </div>
-                `;
+                `.trim();
             });
 
             return text;
