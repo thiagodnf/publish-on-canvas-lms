@@ -43593,70 +43593,35 @@ var Card = function () {
 
     var plugin = {
         type: "lang",
-        regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
-        replace: "<div class='card'>$1</div>"
+        // regex: /\[!Card\]((\n|\r|.)*?)\[Card\]/g,
+        // replace: "<div class='card'>$1</div>"
+        filter: function (text, converter) {
+
+            var regex = new RegExp(/\[!Card\]\((.*)\)\{(.*)\}((\n|\r|.)*?)\[Card\]/, "g");
+
+            text = text.trim().replace(regex, function (match, header, classes, content) {
+
+                header = converter.makeHtml(header.trim());
+                content = converter.makeHtml(content.trim());
+
+                header = header.replace(/^<p>(.*)<\/p>$/, "$1");
+
+                return `
+                    <div class='card ${classes}'>
+                        <div class="card-header">${header}</div>
+                        <div class="card-body">${content}</div>
+                    </div>
+                `;
+            });
+
+            return text;
+        }
     };
 
     return [plugin];
 };
 
 /* harmony default export */ const extensions_Card = (Card);
-
-;// CONCATENATED MODULE: ./src/parser/extensions/CardBody.js
-var CardBody = function () {
-
-    var plugin = {
-        type: "lang",
-        // regex: /\[!CardBody\]((\n|\r|.)*?)\[CardBody\]/g,
-        // replace: "<div class='card-body'>$1</div>",
-        filter: function (text, converter) {
-
-            var regex = new RegExp(/\[!CardBody\]((\n|\r|.)*?)\[CardBody\]/, "g");
-
-            text = text.trim().replace(regex, function (match, content) {
-
-                content = converter.makeHtml(content.trim());
-
-                //content = content.replace(/^<p>(.*)<\/p>$/, "$1");
-
-                return `<div class='card-body'>${content}</div>`;
-            });
-
-            return text;
-        }
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_CardBody = (CardBody);
-
-;// CONCATENATED MODULE: ./src/parser/extensions/CardHeader.js
-var CardHeader = function () {
-
-    var plugin = {
-        type: "lang",
-        filter: function (text, converter) {
-
-            var regex = new RegExp(/\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/, "g");
-
-            text = text.trim().replace(regex, function (match, content) {
-
-                content = converter.makeHtml(content.trim());
-
-                content = content.replace(/^<p>(.*)<\/p>$/, "$1");
-
-                return `<div class='card-header'>${content}</div>`;
-            });
-
-            return text;
-        }
-    };
-
-    return [plugin];
-};
-
-/* harmony default export */ const extensions_CardHeader = (CardHeader);
 
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
 
@@ -43671,7 +43636,7 @@ const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [extensions_Highlight, extensions_Strikethrough, extensions_Card, extensions_CardHeader, extensions_CardBody]
+    extensions: [extensions_Highlight, extensions_Strikethrough, extensions_Card]
 });
 
 function parser(content, css) {

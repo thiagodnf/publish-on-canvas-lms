@@ -10,7 +10,7 @@ const converter = new showdown.Converter({
     noHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
-    extensions: [Highlight, Strikethrough, Card, CardHeader, CardBody]
+    extensions: [Highlight, Strikethrough, Card]
 });
 
 export default function parser(content, css) {
