@@ -43621,17 +43621,15 @@ var CardHeader = function () {
 
     var plugin = {
         type: "lang",
-        // regex: /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g,
-        // replace: "<div class='card-header'>$1</div>"
         filter: function (text, converter) {
-
-            // var regex = /\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/g;
 
             var regex = new RegExp(/\[!CardHeader\]((\n|\r|.)*?)\[CardHeader\]/, "g");
 
-            text = text.replace(regex, function (match, content) {
+            text = text.trim().replace(regex, function (match, content) {
 
-                content = converter.makeHtml(content);
+                content = converter.makeHtml(content.trim());
+
+                content = content.replace(/^<p>(.*)<\/p>$/, "$1");
 
                 return `<div class='card-header'>${content}</div>`;
             });
