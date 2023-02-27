@@ -8,6 +8,8 @@ import Tab from "./extensions/Tab.js";
 import Icon from "./extensions/Icon.js";
 
 const converter = new showdown.Converter({
+    ghCompatibleHeaderId: true,
+    customizedHeaderId: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
