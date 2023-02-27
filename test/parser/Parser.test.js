@@ -6,6 +6,9 @@ test("throws invalid number", () => {
     // let md = "@id 351105";
 
         let md = `
+
+# teste
+
 ## Heading 1
 
 ### heading 2.1

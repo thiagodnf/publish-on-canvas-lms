@@ -1,5 +1,3 @@
-import core from "@actions/core";
-
 var AddHeadingNumbers = function () {
 
     let firstLevel = 2;
@@ -32,7 +30,9 @@ var AddHeadingNumbers = function () {
 
                 level = parseInt(level);
 
-                core.info("level: "+level);
+                if (level < firstLevel) {
+                    return match;
+                }
 
                 numbering[level]++;
 
@@ -41,8 +41,6 @@ var AddHeadingNumbers = function () {
                         numbering[i] = 0;
                     }
                 }
-
-                core.info("numbering: "+JSON.stringify(numbering));
 
                 let next = getNumbering(level);
 
