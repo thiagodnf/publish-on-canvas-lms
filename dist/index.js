@@ -102162,7 +102162,60 @@ var Icon = function () {
 
 /* harmony default export */ const extensions_Icon = (Icon);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/AddHeadingNumbers.js
+var AddHeadingNumbers = function () {
+
+    let firstLevel = 2;
+
+    let numbering = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0
+    };
+
+    function getNumbering(level) {
+
+        if (level == firstLevel) {
+            return numbering[firstLevel] + ".";
+        }
+        return getNumbering(level - 1) + numbering[level] + ".";
+    }
+
+    var plugin = {
+        type: "output",
+        filter: function (text) {
+
+            var regex = new RegExp(/<h([123456]+)\s+(.*?)>(.*)<\/h([123456]+)>/, "gm");
+
+            text = text.replace(regex, function (match, level, attr, content) {
+
+                numbering[level]++;
+
+                if (level == firstLevel) {
+                    for (let i = firstLevel + 1; i <= 6; i++) {
+                        numbering[i] = 0;
+                    }
+                }
+
+                let next = getNumbering(level);
+
+                return `<h${level} ${attr}>${next} ${content}</h${level}>`;
+            });
+
+            return text;
+        }
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_AddHeadingNumbers = (AddHeadingNumbers);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -102182,7 +102235,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon]
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon, extensions_AddHeadingNumbers]
 });
 
 function parser(content, css) {
@@ -102190,7 +102243,7 @@ function parser(content, css) {
     let html = converter.makeHtml(content);
     let metadata = converter.getMetadata();
 
-    core.info(JSON.stringify(metadata));
+    //core.info(JSON.stringify(metadata));
 
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
