@@ -8,7 +8,6 @@ import Tab from "./extensions/Tab.js";
 import Icon from "./extensions/Icon.js";
 
 const converter = new showdown.Converter({
-    noHeaderId: true,       // Disable automatic generation of heading IDs.
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
