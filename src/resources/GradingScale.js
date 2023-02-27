@@ -38,7 +38,6 @@ export default function GradingScale(files, css = "") {
 
         let scale = JSON.parse(fileContent);
 
-        core.info(scale);
-        //CanvasApiUtils.updateGradingScale(scale);
+        CanvasApiUtils.updateGradingScale(scale);
     });
 }

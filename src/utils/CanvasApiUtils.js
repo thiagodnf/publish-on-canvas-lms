@@ -88,19 +88,24 @@ export default class CanvasApiUtils {
         return CanvasApiUtils.put(resource, data);
     }
 
-    static updateGradingScale(scale){
+    static updateGradingScale(nextScale){
 
-        // const response = await CanvasApiUtils.getGradingScale();
+        CanvasApiUtils.getGradingScale().then(response => {
 
-        // const scale = response.data[0];
+            const scale = response.data[0];
 
-        const data = {
-            course: {
-                syllabus_body: scale
+            if(nextScale.title != scale.title){
+                return;
             }
-        };
 
-        // grading_scheme:
+            const data = {
+                grading_scheme_entry: nextScale
+            };
+
+            let resource = "/courses/:course_id/grading_standards";
+
+            return CanvasApiUtils.put(resource, data);
+        });
     }
 
     static getGradingScale(){
