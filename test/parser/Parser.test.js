@@ -1,32 +1,34 @@
 import parser from "../../src/parser/Parser.js";
+import CanvasApiUtils from "../../src/utils/CanvasApiUtils.js";
 import FileUtils from "../../src/utils/FileUtils.js";
 
-test("throws invalid number", () => {
+test("throws invalid number", async () => {
+
 
     // let md = "@id 351105";
 
-        let md = `
+//         let md = `
 
-# teste
+// # teste
 
-## Heading 1
+// ## Heading 1
 
-### heading 2.1
+// ### heading 2.1
 
-### heading 2.2
+// ### heading 2.2
 
-#### test
+// #### test
 
-#### teste 2
+// #### teste 2
 
-## heading 2.3
+// ## heading 2.3
 
 
-        `;
+//         `;
 
-        let html = parser(md, "");
+//         let html = parser(md, "");
 
-    console.log(html);
+//     console.log(html);
 
-    expect(2).toBe(2);
+
 });

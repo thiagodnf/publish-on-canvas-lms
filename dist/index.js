@@ -106875,6 +106875,22 @@ class CanvasApiUtils {
         });
     }
 
+    static async get(resource) {
+
+        resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
+
+        let url = `${CanvasApiUtils.API_URL}${resource}`;
+
+        core?.info(`Sending [GET] request to ${url}`);
+
+        return new Promise((resolve, reject) => {
+
+            lib_axios.get(url, CanvasApiUtils.getHeaders())
+                .then(resolve)
+                .catch(reject);
+        });
+    }
+
     static createOrUpdatePages(pageUrlOrId, fields = {}) {
 
         const data = {
@@ -106912,6 +106928,28 @@ class CanvasApiUtils {
         let resource = "/courses/:course_id";
 
         return CanvasApiUtils.put(resource, data);
+    }
+
+    static updateGradingScale(scale){
+
+        // const response = await CanvasApiUtils.getGradingScale();
+
+        // const scale = response.data[0];
+
+        const data = {
+            course: {
+                syllabus_body: scale
+            }
+        };
+
+        // grading_scheme:
+    }
+
+    static getGradingScale(){
+
+        let resource = "/courses/:course_id/grading_standards";
+
+        return CanvasApiUtils.get(resource);
     }
 }
 
@@ -107058,7 +107096,54 @@ function Syllabus(files, css = "") {
     });
 }
 
+;// CONCATENATED MODULE: ./src/resources/GradingScale.js
+
+
+
+
+
+
+/**
+ * Process files related to Canvas's Syllabus
+ * @param {string} files the list of all files
+ * @returns
+ */
+function GradingScale(files, css = "") {
+
+    core.info("Processings Grading Scale");
+
+    if (StringUtils.isBlank(files)) {
+        return;
+    }
+
+    if (!StringUtils.isBlank(css)) {
+
+        core.info("Loading .css file");
+
+        css = FileUtils.getFileContent(css);
+    }
+
+    core.info("Loading files...");
+
+    files = FileUtils.loadFiles(files);
+
+    core.info(`Found ${files.size} file(s). Processing them...`);
+
+    files.forEach(file => {
+
+        core.info(`Processing: ${file}`);
+
+        let fileContent = FileUtils.getFileContent(file);
+
+        let scale = JSON.parse(fileContent);
+
+        core.info(scale);
+        //CanvasApiUtils.updateGradingScale(scale);
+    });
+}
+
 ;// CONCATENATED MODULE: ./index.js
+
 
 
 
@@ -107086,6 +107171,9 @@ async function run() {
         }
         if (resource === "syllabus") {
             Syllabus(files, css);
+        }
+        if (resource === "grading-scale") {
+            GradingScale(files, css);
         }
 
     } catch (error) {

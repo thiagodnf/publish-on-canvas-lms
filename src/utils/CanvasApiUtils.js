@@ -33,6 +33,22 @@ export default class CanvasApiUtils {
         });
     }
 
+    static async get(resource) {
+
+        resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
+
+        let url = `${CanvasApiUtils.API_URL}${resource}`;
+
+        core?.info(`Sending [GET] request to ${url}`);
+
+        return new Promise((resolve, reject) => {
+
+            axios.get(url, CanvasApiUtils.getHeaders())
+                .then(resolve)
+                .catch(reject);
+        });
+    }
+
     static createOrUpdatePages(pageUrlOrId, fields = {}) {
 
         const data = {
@@ -70,5 +86,27 @@ export default class CanvasApiUtils {
         let resource = "/courses/:course_id";
 
         return CanvasApiUtils.put(resource, data);
+    }
+
+    static updateGradingScale(scale){
+
+        // const response = await CanvasApiUtils.getGradingScale();
+
+        // const scale = response.data[0];
+
+        const data = {
+            course: {
+                syllabus_body: scale
+            }
+        };
+
+        // grading_scheme:
+    }
+
+    static getGradingScale(){
+
+        let resource = "/courses/:course_id/grading_standards";
+
+        return CanvasApiUtils.get(resource);
     }
 }
