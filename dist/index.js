@@ -102188,7 +102188,7 @@ const converter = new showdown.Converter({
 function parser(content, css) {
 
     let html = converter.makeHtml(content);
-    let metadata = conv.getMetadata();
+    let metadata = converter.getMetadata();
 
     core.info(JSON.stringify(metadata));
 
