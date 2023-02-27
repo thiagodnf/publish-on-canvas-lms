@@ -102163,6 +102163,8 @@ var Icon = function () {
 /* harmony default export */ const extensions_Icon = (Icon);
 
 ;// CONCATENATED MODULE: ./src/parser/extensions/AddHeadingNumbers.js
+
+
 var AddHeadingNumbers = function () {
 
     let firstLevel = 2;
@@ -102181,6 +102183,7 @@ var AddHeadingNumbers = function () {
         if (level == firstLevel) {
             return numbering[firstLevel] + ".";
         }
+
         return getNumbering(level - 1) + numbering[level] + ".";
     }
 
@@ -102194,6 +102197,8 @@ var AddHeadingNumbers = function () {
 
                 level = parseInt(level);
 
+                core.info("level: "+level);
+
                 numbering[level]++;
 
                 if (level == firstLevel) {
@@ -102201,6 +102206,8 @@ var AddHeadingNumbers = function () {
                         numbering[i] = 0;
                     }
                 }
+
+                core.info("numbering: "+JSON.stringify(numbering));
 
                 let next = getNumbering(level);
 
