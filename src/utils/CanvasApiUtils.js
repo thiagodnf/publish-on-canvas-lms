@@ -115,7 +115,7 @@ export default class CanvasApiUtils {
             }
 
             const data = {
-                grading_scheme_entry: nextScale
+                grading_scheme_entry: nextScale.grading_scheme
             };
 
             let resource = "/courses/:course_id/grading_standards";
