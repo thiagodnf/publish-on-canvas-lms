@@ -106833,6 +106833,19 @@ class CanvasApiUtils {
 
         return CanvasApiUtils.put(resource, data);
     }
+
+    static createOrUpdateSyllabusBody(syllabusBody) {
+
+        const data = {
+            course: {
+                syllabus_body: syllabusBody
+            }
+        };
+
+        let resource = "/courses/:course_id";
+
+        return CanvasApiUtils.put(resource, data);
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/resources/Pages.js
@@ -106933,7 +106946,54 @@ function Assignments(files, css = "") {
     });
 }
 
+;// CONCATENATED MODULE: ./src/resources/Syllabus.js
+
+
+
+
+
+
+/**
+ * Process files related to Canvas's Syllabus
+ * @param {string} files the list of all files
+ * @returns
+ */
+function Syllabus(files, css = "") {
+
+    core.info("Processings Syllabus");
+
+    if (StringUtils.isBlank(files)) {
+        return;
+    }
+
+    if (!StringUtils.isBlank(css)) {
+
+        core.info("Loading .css file");
+
+        css = FileUtils.getFileContent(css);
+    }
+
+    core.info("Loading files...");
+
+    files = FileUtils.loadFiles(files);
+
+    core.info(`Found ${files.size} file(s). Processing them...`);
+
+    files.forEach(file => {
+
+        core.info(`Processing: ${file}`);
+
+        let content = FileUtils.getFileContent(file);
+
+        let output = parser(content, css);
+
+        CanvasApiUtils.createOrUpdateSyllabusBody(output);
+    });
+}
+
 ;// CONCATENATED MODULE: ./index.js
+
+
 
 
 
@@ -106956,6 +107016,9 @@ async function run() {
         }
         if (resource === "assignments") {
             Assignments(files, css);
+        }
+        if (resource === "syllabus") {
+            Syllabus(files, css);
         }
 
     } catch (error) {

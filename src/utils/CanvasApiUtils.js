@@ -58,4 +58,17 @@ export default class CanvasApiUtils {
 
         return CanvasApiUtils.put(resource, data);
     }
+
+    static createOrUpdateSyllabusBody(syllabusBody) {
+
+        const data = {
+            course: {
+                syllabus_body: syllabusBody
+            }
+        };
+
+        let resource = "/courses/:course_id";
+
+        return CanvasApiUtils.put(resource, data);
+    }
 }
