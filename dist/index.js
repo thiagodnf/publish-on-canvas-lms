@@ -102172,9 +102172,12 @@ var Icon = function () {
 
 
 
+
+
 const converter = new showdown.Converter({
     ghCompatibleHeaderId: true,
     customizedHeaderId: true,
+    metadata: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
@@ -102185,6 +102188,9 @@ const converter = new showdown.Converter({
 function parser(content, css) {
 
     let html = converter.makeHtml(content);
+    let metadata = conv.getMetadata();
+
+    core.info(JSON.stringify(metadata));
 
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 

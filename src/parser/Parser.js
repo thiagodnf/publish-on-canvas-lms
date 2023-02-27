@@ -1,5 +1,7 @@
+import core from "@actions/core";
 import showdown from "showdown";
 import juice from "juice";
+
 import Highlight from "./extensions/Highlight.js";
 import Card from "./extensions/Card.js";
 import Alert from "./extensions/Alert.js";
@@ -10,6 +12,7 @@ import Icon from "./extensions/Icon.js";
 const converter = new showdown.Converter({
     ghCompatibleHeaderId: true,
     customizedHeaderId: true,
+    metadata: true,
     tables: true,       // Enable support for tables synta
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
@@ -20,6 +23,9 @@ const converter = new showdown.Converter({
 export default function parser(content, css) {
 
     let html = converter.makeHtml(content);
+    let metadata = conv.getMetadata();
+
+    core.info(JSON.stringify(metadata));
 
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
