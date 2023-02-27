@@ -17,6 +17,22 @@ export default class CanvasApiUtils {
         };
     }
 
+    static async post(resource, data) {
+
+        resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
+
+        let url = `${CanvasApiUtils.API_URL}${resource}`;
+
+        core.info(`Sending [POST] request to ${url}`);
+
+        return new Promise((resolve, reject) => {
+
+            axios.post(url, data, CanvasApiUtils.getHeaders())
+                .then(resolve)
+                .catch(reject);
+        });
+    }
+
     static async put(resource, data) {
 
         resource = resource.replace(":course_id", CanvasApiUtils.COURSE_ID);
@@ -92,9 +108,9 @@ export default class CanvasApiUtils {
 
         CanvasApiUtils.getGradingScale().then(response => {
 
-            const scale = response.data[0];
+            const scale = response.data.filter(el => el.title != nextScale.title)[0];
 
-            if (nextScale.title != scale.title) {
+            if (scale) {
                 return;
             }
 
@@ -102,11 +118,9 @@ export default class CanvasApiUtils {
                 grading_scheme_entry: nextScale
             };
 
-            let resource = "/courses/:course_id/grading_standards/:grading_standard_id";
+            let resource = "/courses/:course_id/grading_standards";
 
-            resource = resource.replace(":grading_standard_id", scale.id);
-
-            return CanvasApiUtils.put(resource, data);
+            return CanvasApiUtils.post(resource, data);
         });
     }
 
