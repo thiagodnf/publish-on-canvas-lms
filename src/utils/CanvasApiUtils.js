@@ -108,7 +108,7 @@ export default class CanvasApiUtils {
 
         CanvasApiUtils.getGradingScale().then(response => {
 
-            const scale = response.data.filter(el => el.title != nextScale.title)[0];
+            const scale = response.data.filter(el => el.title == nextScale.title)[0];
 
             if (scale) {
                 return;
