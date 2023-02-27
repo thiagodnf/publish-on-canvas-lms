@@ -88,13 +88,13 @@ export default class CanvasApiUtils {
         return CanvasApiUtils.put(resource, data);
     }
 
-    static updateGradingScale(nextScale){
+    static updateGradingScale(nextScale) {
 
         CanvasApiUtils.getGradingScale().then(response => {
 
             const scale = response.data[0];
 
-            if(nextScale.title != scale.title){
+            if (nextScale.title != scale.title) {
                 return;
             }
 
@@ -102,13 +102,15 @@ export default class CanvasApiUtils {
                 grading_scheme_entry: nextScale
             };
 
-            let resource = "/courses/:course_id/grading_standards";
+            let resource = "/courses/:course_id/grading_standards/:grading_standard_id";
+
+            resource = resource.replace(":grading_standard_id", scale.id);
 
             return CanvasApiUtils.put(resource, data);
         });
     }
 
-    static getGradingScale(){
+    static getGradingScale() {
 
         let resource = "/courses/:course_id/grading_standards";
 

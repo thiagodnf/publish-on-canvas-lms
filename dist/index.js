@@ -106930,22 +106930,29 @@ class CanvasApiUtils {
         return CanvasApiUtils.put(resource, data);
     }
 
-    static updateGradingScale(scale){
+    static updateGradingScale(nextScale) {
 
-        // const response = await CanvasApiUtils.getGradingScale();
+        CanvasApiUtils.getGradingScale().then(response => {
 
-        // const scale = response.data[0];
+            const scale = response.data[0];
 
-        const data = {
-            course: {
-                syllabus_body: scale
+            if (nextScale.title != scale.title) {
+                return;
             }
-        };
 
-        // grading_scheme:
+            const data = {
+                grading_scheme_entry: nextScale
+            };
+
+            let resource = "/courses/:course_id/grading_standards/:grading_standard_id";
+
+            resource = resource.replace(":grading_standard_id", scale.id);
+
+            return CanvasApiUtils.put(resource, data);
+        });
     }
 
-    static getGradingScale(){
+    static getGradingScale() {
 
         let resource = "/courses/:course_id/grading_standards";
 
@@ -107137,8 +107144,7 @@ function GradingScale(files, css = "") {
 
         let scale = JSON.parse(fileContent);
 
-        core.info(scale);
-        //CanvasApiUtils.updateGradingScale(scale);
+        CanvasApiUtils.updateGradingScale(scale);
     });
 }
 
