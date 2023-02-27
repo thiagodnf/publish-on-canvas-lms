@@ -27,6 +27,8 @@ var AddHeadingNumbers = function () {
 
             text = text.replace(regex, function (match, level, attr, content) {
 
+                level = parseInt(level);
+
                 numbering[level]++;
 
                 if (level == firstLevel) {
