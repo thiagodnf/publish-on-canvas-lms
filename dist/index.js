@@ -102221,7 +102221,22 @@ var AddHeadingNumbers = function () {
 
 /* harmony default export */ const extensions_AddHeadingNumbers = (AddHeadingNumbers);
 
+;// CONCATENATED MODULE: ./src/parser/extensions/AddClassToHeading.js
+var AddClassToHeading = function () {
+
+    var plugin = {
+        type: "output",
+        regex: "<h2(.*?)>(.*?)</h2>",
+        replace: "<h2 class='ui-priority-primary' $1>$2</h2>"
+    };
+
+    return [plugin];
+};
+
+/* harmony default export */ const extensions_AddClassToHeading = (AddClassToHeading);
+
 ;// CONCATENATED MODULE: ./src/parser/Parser.js
+
 
 
 
@@ -102242,7 +102257,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon, extensions_AddHeadingNumbers]
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon, extensions_AddHeadingNumbers, extensions_AddClassToHeading]
 });
 
 function parser(content, css) {

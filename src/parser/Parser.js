@@ -9,6 +9,7 @@ import Code from "./extensions/Code.js";
 import Tab from "./extensions/Tab.js";
 import Icon from "./extensions/Icon.js";
 import AddHeadingNumbers from "./extensions/AddHeadingNumbers.js";
+import AddClassToHeading from "./extensions/AddClassToHeading.js";
 
 const converter = new showdown.Converter({
     ghCompatibleHeaderId: true,
@@ -18,7 +19,7 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [Highlight, Card, Alert, Code, Tab, Icon, AddHeadingNumbers]
+    extensions: [Highlight, Card, Alert, Code, Tab, Icon, AddHeadingNumbers, AddClassToHeading]
 });
 
 export default function parser(content, css) {
