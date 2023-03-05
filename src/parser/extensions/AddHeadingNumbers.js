@@ -1,8 +1,7 @@
-var AddHeadingNumbers = function () {
+let numbering = {};
 
-    let firstLevel = 2;
-
-    let numbering = {
+export function resetHeadingNumbers(){
+    numbering = {
         1: 0,
         2: 0,
         3: 0,
@@ -10,6 +9,15 @@ var AddHeadingNumbers = function () {
         5: 0,
         6: 0
     };
+}
+
+
+
+export var AddHeadingNumbers = function () {
+
+    let firstLevel = 2;
+
+    resetHeadingNumbers();
 
     function getNumbering(level) {
 
@@ -54,4 +62,4 @@ var AddHeadingNumbers = function () {
     return [plugin];
 };
 
-export default AddHeadingNumbers;
+// export default {AddHeadingNumbers resetHeadingNumbers};

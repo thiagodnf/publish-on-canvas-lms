@@ -102163,11 +102163,10 @@ var Icon = function () {
 /* harmony default export */ const extensions_Icon = (Icon);
 
 ;// CONCATENATED MODULE: ./src/parser/extensions/AddHeadingNumbers.js
-var AddHeadingNumbers = function () {
+let numbering = {};
 
-    let firstLevel = 2;
-
-    let numbering = {
+function resetHeadingNumbers(){
+    numbering = {
         1: 0,
         2: 0,
         3: 0,
@@ -102175,6 +102174,15 @@ var AddHeadingNumbers = function () {
         5: 0,
         6: 0
     };
+}
+
+
+
+var AddHeadingNumbers = function () {
+
+    let firstLevel = 2;
+
+    resetHeadingNumbers();
 
     function getNumbering(level) {
 
@@ -102219,7 +102227,7 @@ var AddHeadingNumbers = function () {
     return [plugin];
 };
 
-/* harmony default export */ const extensions_AddHeadingNumbers = (AddHeadingNumbers);
+// export default {AddHeadingNumbers resetHeadingNumbers};
 
 ;// CONCATENATED MODULE: ./src/parser/extensions/AddClassToHeading.js
 var AddClassToHeading = function () {
@@ -102257,10 +102265,12 @@ const converter = new showdown.Converter({
     tasklists: true,     //  Enable support for GFM tasklists,
     strikethrough: true, // Enable support for strikethrough,
     simplifiedAutoLink: true, // Enable automatic linking for plain text URLs.
-    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon, extensions_AddHeadingNumbers, extensions_AddClassToHeading]
+    extensions: [extensions_Highlight, extensions_Card, extensions_Alert, extensions_Code, extensions_Tab, extensions_Icon, AddHeadingNumbers, extensions_AddClassToHeading]
 });
 
 function parser(content, css) {
+
+    resetHeadingNumbers();
 
     let html = converter.makeHtml(content);
     let metadata = converter.getMetadata();

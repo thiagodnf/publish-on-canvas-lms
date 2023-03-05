@@ -8,7 +8,7 @@ import Alert from "./extensions/Alert.js";
 import Code from "./extensions/Code.js";
 import Tab from "./extensions/Tab.js";
 import Icon from "./extensions/Icon.js";
-import AddHeadingNumbers from "./extensions/AddHeadingNumbers.js";
+import {AddHeadingNumbers, resetHeadingNumbers} from "./extensions/AddHeadingNumbers.js";
 import AddClassToHeading from "./extensions/AddClassToHeading.js";
 
 const converter = new showdown.Converter({
@@ -23,6 +23,8 @@ const converter = new showdown.Converter({
 });
 
 export default function parser(content, css) {
+
+    resetHeadingNumbers();
 
     let html = converter.makeHtml(content);
     let metadata = converter.getMetadata();
