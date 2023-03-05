@@ -36,8 +36,8 @@ export default function Syllabus(files, css = "") {
 
         let content = FileUtils.getFileContent(file);
 
-        let output = parser(content, css);
+        let {html, metadata} = parser(content, css);
 
-        CanvasApiUtils.createOrUpdateSyllabusBody(output);
+        CanvasApiUtils.createOrUpdateSyllabusBody(html);
     });
 }

@@ -37,8 +37,10 @@ export default function Pages(files, css = "") {
         let filename = FileUtils.getFileName(file);
         let content = FileUtils.getFileContent(file);
 
-        let output = parser(content, css);
+        let {html, metadata} = parser(content, css);
 
-        CanvasApiUtils.createOrUpdatePages(filename, { body: output });
+        core.info(JSON.stringify(metadata));
+
+        CanvasApiUtils.createOrUpdatePages(filename, { body: html });
     });
 }

@@ -42,9 +42,9 @@ export default function Assignments(files, css = "") {
 
         if (assignmentId) {
 
-            let output = parser(fileContent, css);
+            let {html, metadata} = parser(fileContent, css);
 
-            CanvasApiUtils.updateAssignments(assignmentId, { description: output });
+            CanvasApiUtils.updateAssignments(assignmentId, { description: html });
         }
     });
 }

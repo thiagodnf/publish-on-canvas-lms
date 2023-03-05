@@ -29,9 +29,7 @@ export default function parser(content, css) {
 
     Object.keys(metadata).forEach(k => metadata[k] = metadata[k]?.trim());
 
-    core.info(JSON.stringify(metadata));
-
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
-    return html;
+    return { html, metadata };
 }

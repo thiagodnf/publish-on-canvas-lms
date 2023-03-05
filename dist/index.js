@@ -102267,11 +102267,9 @@ function parser(content, css) {
 
     Object.keys(metadata).forEach(k => metadata[k] = metadata[k]?.trim());
 
-    core.info(JSON.stringify(metadata));
-
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
-    return html;
+    return { html, metadata };
 }
 
 // EXTERNAL MODULE: external "fs"
@@ -107031,9 +107029,11 @@ function Pages(files, css = "") {
         let filename = FileUtils.getFileName(file);
         let content = FileUtils.getFileContent(file);
 
-        let output = parser(content, css);
+        let {html, metadata} = parser(content, css);
 
-        CanvasApiUtils.createOrUpdatePages(filename, { body: output });
+        core.info(JSON.stringify(metadata));
+
+        CanvasApiUtils.createOrUpdatePages(filename, { body: html });
     });
 }
 
@@ -107082,9 +107082,9 @@ function Assignments(files, css = "") {
 
         if (assignmentId) {
 
-            let output = parser(fileContent, css);
+            let {html, metadata} = parser(fileContent, css);
 
-            CanvasApiUtils.updateAssignments(assignmentId, { description: output });
+            CanvasApiUtils.updateAssignments(assignmentId, { description: html });
         }
     });
 }
@@ -107128,9 +107128,9 @@ function Syllabus(files, css = "") {
 
         let content = FileUtils.getFileContent(file);
 
-        let output = parser(content, css);
+        let {html, metadata} = parser(content, css);
 
-        CanvasApiUtils.createOrUpdateSyllabusBody(output);
+        CanvasApiUtils.createOrUpdateSyllabusBody(html);
     });
 }
 
