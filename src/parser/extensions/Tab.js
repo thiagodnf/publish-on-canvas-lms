@@ -8,7 +8,7 @@ var Tab = function () {
 
             text = text.replace(regex, function (match1, items) {
 
-                var itemRegex = new RegExp("((?:\\[tabitem\\]\\((.+)\\)((\\n|\\r|.)*?)\\[\/tabitem]))", "gm");
+                var itemRegex = new RegExp("((?:\\[TabItem\\]\\[(.+)\\]((\\n|\\r|.)*?)\\[\/TabItem]))", "gm");
 
                 let navItems = [];
                 let tabPane = [];

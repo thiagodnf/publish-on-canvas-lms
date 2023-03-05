@@ -9,19 +9,17 @@ test("throws invalid number", async () => {
 
         let md = `
 
-# teste
+[Tab]
 
-## Heading 1
+[TabItem][Tab 1]
+teste
+[/TabItem]
 
-### heading 2.1
+[TabItem][Tab 2]
+**teste**
+[/TabItem]
 
-### heading 2.2
-
-#### test
-
-#### teste 2
-
-## heading 2.3
+[/Tab]
 
 
         `;
