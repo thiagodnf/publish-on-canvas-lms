@@ -107036,7 +107036,9 @@ function Pages(files, css = "") {
         let url = metadata.url || filename;
 
         let data = {
-            title: metadata.title || filename,
+            title: metadata.title || url,
+            published: metadata.published || false,
+            front_page: metadata.frontPage || false,
             body: html
         };
 
