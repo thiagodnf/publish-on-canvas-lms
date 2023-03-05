@@ -102265,6 +102265,8 @@ function parser(content, css) {
     let html = converter.makeHtml(content);
     let metadata = converter.getMetadata();
 
+    Object.keys(metadata).forEach(k => metadata[k] = metadata[k]?.trim());
+
     core.info(JSON.stringify(metadata));
 
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
