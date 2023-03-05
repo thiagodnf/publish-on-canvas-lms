@@ -102099,7 +102099,7 @@ var Tab = function () {
         type: "lang",
         filter: function (text, converter, options) {
 
-            var regex = new RegExp(/\[tab\](.*)\[\/tab\]/, "s");
+            var regex = new RegExp(/\[Tab\](.*)\[\/Tab\]/, "s");
 
             text = text.replace(regex, function (match1, items) {
 
