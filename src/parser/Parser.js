@@ -28,6 +28,8 @@ export default function parser(content, css) {
     let metadata = converter.getMetadata();
 
     Object.keys(metadata).forEach(k => metadata[k] = metadata[k]?.trim());
+    metadata = Object.keys(metadata)
+        .reduce((c, k) => (c[k.toLowerCase().trim()] = metadata[k], c), {});
 
     html = juice(`<style>${css}</style>${html}`, { preserveImportant: true });
 
