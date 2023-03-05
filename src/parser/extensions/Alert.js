@@ -6,7 +6,7 @@ var Alert = function () {
         // replace: "<div class='card'>$1</div>"
         filter: function (text, converter) {
 
-            var regex = new RegExp(/\[!Alert\]\{(.*)\}((\n|\r|.)*?)\[Alert\]/, "g");
+            var regex = new RegExp(/\[Alert\]\[(.*)\]((\n|\r|.)*?)\[\/Alert\]/, "g");
 
             text = text.trim().replace(regex, function (match, classes, content) {
 
