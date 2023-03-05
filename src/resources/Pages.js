@@ -39,8 +39,9 @@ export default function Pages(files, css = "") {
 
         let { html, metadata } = parser(content, css);
 
+        let url = metadata.url || filename;
+
         let data = {
-            url: metadata.url || filename,
             title: metadata.title || filename,
             body: html
         };
