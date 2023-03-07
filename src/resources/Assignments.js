@@ -34,7 +34,7 @@ export default function Assignments(files, css = "") {
 
         core.info(`Processing: ${file}`);
 
-        core.info(FileUtils);
+        core.info("hey");
 
         let content = FileUtils.getFileContent(file);
 
