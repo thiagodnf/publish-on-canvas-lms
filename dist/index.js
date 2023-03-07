@@ -107093,12 +107093,7 @@ function Assignments(files, css = "") {
 
         core.info(`Processing: ${file}`);
 
-        core.info("hey");
-
         let content = FileUtils.getFileContent(file);
-
-        core.info(content);
-        core.info(css);
 
         let { html, metadata } = parser(content, css);
 
