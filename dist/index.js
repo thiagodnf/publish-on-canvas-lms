@@ -107097,13 +107097,11 @@ function Assignments(files, css = "") {
 
         let { html, metadata } = parser(content, css);
 
-        let id = metadata.id || null;
+        if (metadata && metadata.id) {
 
-        core.info(`AssignmentId: ${id}`);
+            core.info(`AssignmentId: ${metadata.id}`);
 
-        if (id) {
-
-            CanvasApiUtils.updateAssignments(id, { description: html });
+            CanvasApiUtils.updateAssignments(metadata.id, { description: html });
         }
     });
 }
