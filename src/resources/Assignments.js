@@ -28,13 +28,18 @@ export default function Assignments(files, css = "") {
 
     files = FileUtils.loadFiles(files);
 
-    core.info(`Found ${files.size} file(s). Processing them...`);
+    core.info(`Found ${files.size} file(s). Processing them:`);
 
     files.forEach(file => {
 
         core.info(`Processing: ${file}`);
 
+        core.info(FileUtils);
+
         let content = FileUtils.getFileContent(file);
+
+        core.info(content);
+        core.info(css);
 
         let { html, metadata } = parser(content, css);
 
