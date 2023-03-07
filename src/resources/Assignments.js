@@ -34,17 +34,17 @@ export default function Assignments(files, css = "") {
 
         core.info(`Processing: ${file}`);
 
-        let fileContent = FileUtils.getFileContent(file);
+        let content = FileUtils.getFileContent(file);
 
-        let assignmentId = /@id\s+(\d+)$/gm.exec(fileContent)[1];
+        let { html, metadata } = parser(content, css);
 
-        core.info(`AssignmentId: ${assignmentId}`);
+        let id = metadata.id || null;
 
-        if (assignmentId) {
+        core.info(`AssignmentId: ${id}`);
 
-            let {html, metadata} = parser(fileContent, css);
+        if (id) {
 
-            CanvasApiUtils.updateAssignments(assignmentId, { description: html });
+            CanvasApiUtils.updateAssignments(id, { description: html });
         }
     });
 }
